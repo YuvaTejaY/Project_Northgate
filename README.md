@@ -33,3 +33,15 @@ The CI/CD pipeline in `.github/workflows/deploy.yml` supports both **Staging** a
 | `main` | `production` | `:latest`, `:<sha>` | Runs full CI checks, publishes production images to GHCR, and deploys to your GCP production VM with public registration and demo seeding disabled. |
 
 See [backend/README.md](backend/README.md) for the complete GCP resource checklist (Compute Engine VM, private-IP Cloud SQL, GCS bucket, DNS, and GitHub Environment secrets).
+
+### One-Command GCP Provisioning (Google Cloud Shell)
+
+To provision a GCP VM, private-IP Cloud SQL instance, GCS bucket, static IP (`<VM_IP>.nip.io` HTTPS), and SSH deploy key from [Google Cloud Shell](https://shell.cloud.google.com/):
+
+```bash
+git clone https://github.com/YuvaTejaY/Project_Northgate.git
+cd Project_Northgate
+bash scripts/gcp-bootstrap.sh staging
+```
+
+Then copy the printed secrets into **GitHub → Settings → Environments → `staging`** (or `production`) and re-run the **CI and Deploy** workflow.
