@@ -1,0 +1,100 @@
+services:
+  cloud-sql-proxy:
+    image: gcr.io/cloud-sql-connectors/cloud-sql-proxy:2.18.2
+    restart: unless-stopped
+    command:
+      - --address=0.0.0.0
+      - --port=5432
+      - --private-ip
+      - ${CLOUD_SQL_INSTANCE:?Set CLOUD_SQL_INSTANCE to project:region:instance}
+    networks:
+      - app
+    security_opt:
+      - no-new-privileges:true
+
+  kyc-api:
+    image: ${KYC_IMAGE:?Set KYC_IMAGE to a published image}
+    restart: unless-stopped
+    environment:
+      DATABASE_URL: ${KYC_DATABASE_URL:?Set KYC_DATABASE_URL to managed PostgreSQL}
+      SECRET_KEY: ${SECRET_KEY:?Set SECRET_KEY in the deployment environment}
+      CORS_ALLOWED_ORIGINS: https://${APP_DOMAIN:?Set APP_DOMAIN}
+      ALLOW_PUBLIC_REGISTRATION: ${ALLOW_PUBLIC_REGISTRATION:-false}
+      APP_ENV: ${APP_ENV:-production}
+      GOOGLE_CLOUD_PROJECT: ${GOOGLE_CLOUD_PROJECT:?Set GOOGLE_CLOUD_PROJECT}
+      GCS_BUCKET_NAME: ${GCS_BUCKET_NAME:?Set GCS_BUCKET_NAME}
+    depends_on:
+      cloud-sql-proxy:
+        condition: service_started
+    networks:
+      - app
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://127.0.0.1:8000/health', timeout=4)"]
+      interval: 30s
+      timeout: 5s
+      start_period: 60s
+      retries: 5
+    security_opt:
+      - no-new-privileges:true
+    read_only: true
+    tmpfs:
+      - /tmp:size=32m,mode=1777
+
+  chaser-api:
+    image: ${CHASER_IMAGE:?Set CHASER_IMAGE to a published image}
+    restart: unless-stopped
+    environment:
+      DATABASE_URL: ${CHASER_DATABASE_URL:?Set CHASER_DATABASE_URL to managed PostgreSQL}
+      SECRET_KEY: ${SECRET_KEY:?Set SECRET_KEY in the deployment environment}
+      ALLOWED_ORIGINS: https://${APP_DOMAIN:?Set APP_DOMAIN}
+      PORT: "8001"
+      SEED_DEMO_DATA: ${SEED_DEMO_DATA:-false}
+    depends_on:
+      kyc-api:
+        condition: service_healthy
+      cloud-sql-proxy:
+        condition: service_started
+    networks:
+      - app
+    healthcheck:
+      test: ["CMD", "node", "-e", "fetch('http://127.0.0.1:8001/health').then(r=>process.exit(r.ok?0:1)).catch(()=>process.exit(1))"]
+      interval: 30s
+      timeout: 5s
+      start_period: 30s
+      retries: 5
+    security_opt:
+      - no-new-privileges:true
+    read_only: true
+    tmpfs:
+      - /tmp:size=32m,mode=1777
+
+  caddy:
+    image: caddy:2-alpine
+    restart: unless-stopped
+    environment:
+      APP_DOMAIN: ${APP_DOMAIN:?Set APP_DOMAIN}
+    ports:
+      - "80:80"
+      - "443:443"
+      - "443:443/udp"
+    volumes:
+      - ./Caddyfile:/etc/caddy/Caddyfile:ro
+      - caddy_data:/data
+      - caddy_config:/config
+    depends_on:
+      kyc-api:
+        condition: service_healthy
+      chaser-api:
+        condition: service_healthy
+    networks:
+      - app
+    security_opt:
+      - no-new-privileges:true
+
+networks:
+  app:
+    driver: bridge
+
+volumes:
+  caddy_data:
+  caddy_config:

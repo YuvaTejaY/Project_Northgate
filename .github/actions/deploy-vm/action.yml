@@ -1,0 +1,203 @@
+name: Deploy Northgate Stack to Cloud VM
+description: Copies Compose/Caddy config and deploys published GHCR images to a GCP Compute Engine VM over SSH.
+
+inputs:
+  image_namespace:
+    required: true
+    type: string
+  image_tag:
+    required: true
+    type: string
+  cloud_vm_host:
+    required: true
+    type: string
+  cloud_vm_user:
+    required: true
+    type: string
+  cloud_vm_ssh_private_key:
+    required: true
+    type: string
+  cloud_vm_known_hosts:
+    required: true
+    type: string
+  app_domain:
+    required: true
+    type: string
+  kyc_database_url:
+    required: true
+    type: string
+  chaser_database_url:
+    required: true
+    type: string
+  secret_key:
+    required: true
+    type: string
+  google_cloud_project:
+    required: true
+    type: string
+  gcs_bucket_name:
+    required: true
+    type: string
+  cloud_sql_instance:
+    required: true
+    type: string
+  ghcr_username:
+    required: true
+    type: string
+  ghcr_read_token:
+    required: true
+    type: string
+  allow_public_registration:
+    required: false
+    default: "false"
+    type: string
+  seed_demo_data:
+    required: false
+    default: "false"
+    type: string
+
+runs:
+  using: composite
+  steps:
+    - name: Configure deployment SSH
+      shell: bash
+      env:
+        CLOUD_VM_SSH_PRIVATE_KEY: ${{ inputs.cloud_vm_ssh_private_key }}
+        CLOUD_VM_KNOWN_HOSTS: ${{ inputs.cloud_vm_known_hosts }}
+      run: |
+        test -n "$CLOUD_VM_SSH_PRIVATE_KEY"
+        test -n "$CLOUD_VM_KNOWN_HOSTS"
+        mkdir -p "$HOME/.ssh"
+        chmod 700 "$HOME/.ssh"
+        printf '%s\n' "$CLOUD_VM_SSH_PRIVATE_KEY" > "$HOME/.ssh/northgate_deploy"
+        printf '%s\n' "$CLOUD_VM_KNOWN_HOSTS" > "$HOME/.ssh/known_hosts"
+        chmod 600 "$HOME/.ssh/northgate_deploy" "$HOME/.ssh/known_hosts"
+
+    - name: Prepare deployment configuration
+      shell: bash
+      env:
+        APP_DOMAIN: ${{ inputs.app_domain }}
+        KYC_DATABASE_URL: ${{ inputs.kyc_database_url }}
+        CHASER_DATABASE_URL: ${{ inputs.chaser_database_url }}
+        SECRET_KEY: ${{ inputs.secret_key }}
+        GOOGLE_CLOUD_PROJECT: ${{ inputs.google_cloud_project }}
+        GCS_BUCKET_NAME: ${{ inputs.gcs_bucket_name }}
+        CLOUD_SQL_INSTANCE: ${{ inputs.cloud_sql_instance }}
+        GHCR_USERNAME: ${{ inputs.ghcr_username }}
+        GHCR_READ_TOKEN: ${{ inputs.ghcr_read_token }}
+        IMAGE_NAMESPACE: ${{ inputs.image_namespace }}
+        IMAGE_TAG: ${{ inputs.image_tag }}
+        ALLOW_PUBLIC_REGISTRATION: ${{ inputs.allow_public_registration }}
+        SEED_DEMO_DATA: ${{ inputs.seed_demo_data }}
+      run: |
+        python - <<'PY'
+        import os
+        from pathlib import Path
+
+        keys = (
+            "APP_DOMAIN", "KYC_DATABASE_URL", "CHASER_DATABASE_URL", "SECRET_KEY",
+            "GOOGLE_CLOUD_PROJECT", "GCS_BUCKET_NAME", "CLOUD_SQL_INSTANCE",
+            "GHCR_USERNAME", "GHCR_READ_TOKEN",
+            "IMAGE_NAMESPACE", "IMAGE_TAG",
+        )
+        for key in keys:
+            value = os.environ.get(key, "")
+            if not value:
+                raise SystemExit(f"Required GitHub secret or value is missing: {key}")
+            if any(character in value for character in "\r\n'"):
+                raise SystemExit(f"Deployment value contains an unsupported character: {key}")
+        allow_reg = os.environ.get("ALLOW_PUBLIC_REGISTRATION", "false").lower() == "true"
+        seed_demo = os.environ.get("SEED_DEMO_DATA", "false").lower() == "true"
+        config = (
+            f"APP_DOMAIN={os.environ['APP_DOMAIN']}\n"
+            f"KYC_DATABASE_URL={os.environ['KYC_DATABASE_URL']}\n"
+            f"CHASER_DATABASE_URL={os.environ['CHASER_DATABASE_URL']}\n"
+            f"SECRET_KEY={os.environ['SECRET_KEY']}\n"
+            f"GOOGLE_CLOUD_PROJECT={os.environ['GOOGLE_CLOUD_PROJECT']}\n"
+            f"GCS_BUCKET_NAME={os.environ['GCS_BUCKET_NAME']}\n"
+            f"CLOUD_SQL_INSTANCE={os.environ['CLOUD_SQL_INSTANCE']}\n"
+            f"ALLOW_PUBLIC_REGISTRATION={'true' if allow_reg else 'false'}\n"
+            f"SEED_DEMO_DATA={'true' if seed_demo else 'false'}\n"
+            f"KYC_IMAGE={os.environ['IMAGE_NAMESPACE'].lower()}/northgate-kyc-api:{os.environ['IMAGE_TAG']}\n"
+            f"CHASER_IMAGE={os.environ['IMAGE_NAMESPACE'].lower()}/northgate-document-chaser-api:{os.environ['IMAGE_TAG']}\n"
+        )
+        Path(".env.production").write_text(config, encoding="utf-8")
+        Path(".ghcr-token").write_text(os.environ["GHCR_READ_TOKEN"], encoding="utf-8")
+        os.chmod(".env.production", 0o600)
+        os.chmod(".ghcr-token", 0o600)
+        PY
+
+    - name: Copy stack configuration to cloud VM
+      shell: bash
+      env:
+        CLOUD_VM_HOST: ${{ inputs.cloud_vm_host }}
+        CLOUD_VM_USER: ${{ inputs.cloud_vm_user }}
+      run: |
+        test -n "$CLOUD_VM_HOST"
+        test -n "$CLOUD_VM_USER"
+        case "$CLOUD_VM_HOST" in
+          *[!A-Za-z0-9._-]*) echo "CLOUD_VM_HOST contains unsupported characters" >&2; exit 1 ;;
+        esac
+        case "$CLOUD_VM_USER" in
+          ''|*[!A-Za-z0-9._-]*) echo "CLOUD_VM_USER contains unsupported characters" >&2; exit 1 ;;
+        esac
+        SSH_OPTIONS="-i $HOME/.ssh/northgate_deploy -o UserKnownHostsFile=$HOME/.ssh/known_hosts -o StrictHostKeyChecking=yes"
+        ssh $SSH_OPTIONS "$CLOUD_VM_USER@$CLOUD_VM_HOST" 'mkdir -p "$HOME/northgate" && chmod 700 "$HOME/northgate"'
+        scp -i "$HOME/.ssh/northgate_deploy" -o UserKnownHostsFile="$HOME/.ssh/known_hosts" -o StrictHostKeyChecking=yes \
+          backend/compose.production.yaml backend/Caddyfile .env.production .ghcr-token \
+          "$CLOUD_VM_USER@$CLOUD_VM_HOST:northgate/"
+
+    - name: Pull and start the deployment stack
+      shell: bash
+      env:
+        CLOUD_VM_HOST: ${{ inputs.cloud_vm_host }}
+        CLOUD_VM_USER: ${{ inputs.cloud_vm_user }}
+        GHCR_USERNAME: ${{ inputs.ghcr_username }}
+      run: |
+        case "$GHCR_USERNAME" in
+          ''|*[!A-Za-z0-9._-]*) echo "GHCR_USERNAME must contain only letters, numbers, '.', '_' or '-'" >&2; exit 1 ;;
+        esac
+        ssh -i "$HOME/.ssh/northgate_deploy" \
+          -o UserKnownHostsFile="$HOME/.ssh/known_hosts" -o StrictHostKeyChecking=yes \
+          "$CLOUD_VM_USER@$CLOUD_VM_HOST" \
+          "GHCR_USERNAME='$GHCR_USERNAME' bash -se" <<'REMOTE'
+        set -eu
+        umask 077
+        cd "$HOME/northgate"
+        test -s .ghcr-token
+        chmod 600 .ghcr-token .env.production
+        DOCKER_CONFIG=$(mktemp -d)
+        export DOCKER_CONFIG
+        trap 'docker logout ghcr.io >/dev/null 2>&1 || true; rm -f "$DOCKER_CONFIG/config.json"; rmdir "$DOCKER_CONFIG"' EXIT
+        docker login ghcr.io --username "$GHCR_USERNAME" --password-stdin < .ghcr-token
+        rm -f .ghcr-token
+        if [ -f .env ]; then cp .env .env.previous && chmod 600 .env.previous; fi
+        mv .env.production .env
+        if docker compose --env-file .env -f compose.production.yaml pull \
+          && docker compose --env-file .env -f compose.production.yaml up -d --remove-orphans --wait --wait-timeout 240; then
+          rm -f .env.previous
+        else
+          if [ -f .env.previous ]; then
+            mv .env.previous .env
+            docker compose --env-file .env -f compose.production.yaml up -d --remove-orphans --wait --wait-timeout 240 || true
+          fi
+          exit 1
+        fi
+        docker logout ghcr.io >/dev/null
+        rm -f "$DOCKER_CONFIG/config.json"
+        rmdir "$DOCKER_CONFIG"
+        trap - EXIT
+        REMOTE
+
+    - name: Verify HTTPS application endpoints
+      shell: bash
+      env:
+        APP_DOMAIN: ${{ inputs.app_domain }}
+      run: |
+        curl --fail --silent --show-error --retry 12 --retry-delay 10 --retry-connrefused "https://$APP_DOMAIN/health"
+        curl --fail --silent --show-error --retry 12 --retry-delay 10 --retry-connrefused "https://$APP_DOMAIN/chaser-api/health"
+
+    - name: Remove deployment secrets from runner
+      if: always()
+      shell: bash
+      run: rm -f .env.production .ghcr-token "$HOME/.ssh/northgate_deploy"

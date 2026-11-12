@@ -1,0 +1,1 @@
+"""Northgate eKYC application package."""

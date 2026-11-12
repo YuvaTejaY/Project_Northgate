@@ -1,0 +1,784 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#f6f7f9" />
+    <title>Northgate | Corporate KYC Chaser</title>
+    <style>
+      :root {
+        color-scheme: light;
+        --ink: #17243b;
+        --muted: #68758a;
+        --line: #e2e7ee;
+        --paper: #fff;
+        --canvas: #f6f7f9;
+        --navy: #172d4f;
+        --blue: #2861ba;
+        --blue-soft: #edf4ff;
+        --green: #18764d;
+        --green-soft: #eaf6ef;
+        --amber: #99620b;
+        --amber-soft: #fff4dc;
+        --red: #aa3b36;
+        --red-soft: #fff0ef;
+        font-family: Inter, ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+      }
+
+      * { box-sizing: border-box; }
+      body { margin: 0; background: var(--canvas); color: var(--ink); font-size: 14px; }
+      button, input, select, textarea { font: inherit; }
+      button { cursor: pointer; }
+      button:focus-visible, input:focus-visible, select:focus-visible, textarea:focus-visible, a:focus-visible {
+        outline: 3px solid #84adf2;
+        outline-offset: 2px;
+      }
+      .shell { max-width: 1440px; margin: auto; padding: 0 34px 48px; }
+      .topbar {
+        display: flex; align-items: center; justify-content: space-between; gap: 20px;
+        min-height: 76px; border-bottom: 1px solid var(--line); background: var(--paper);
+        padding: 0 max(34px, calc((100vw - 1440px) / 2)); margin: 0 -34px 26px;
+      }
+      .brand { display: flex; align-items: center; gap: 12px; padding-left: 34px; min-width: 245px; }
+      .brand-mark { display: grid; width: 36px; height: 36px; place-items: center; border-radius: 10px; background: var(--navy); color: #fff; font-weight: 800; }
+      .brand strong { display: block; font-size: 15px; letter-spacing: .07em; }
+      .brand small { display: block; color: var(--muted); font-size: 11px; margin-top: 3px; }
+      .top-tools { display: flex; align-items: center; gap: 18px; padding-right: 34px; color: var(--muted); font-size: 12px; }
+      .top-tools strong { color: var(--ink); }
+      .avatar { display: grid; width: 34px; height: 34px; place-items: center; border-radius: 50%; background: #e7edf7; color: var(--navy); font-weight: 700; }
+      .nav { display: flex; gap: 6px; border-bottom: 1px solid var(--line); margin-bottom: 26px; overflow-x: auto; }
+      .nav button { white-space: nowrap; border: 0; background: transparent; padding: 12px 15px; color: var(--muted); border-bottom: 2px solid transparent; }
+      .nav button.active { color: var(--blue); border-bottom-color: var(--blue); font-weight: 700; }
+      .page-heading { display: flex; align-items: flex-end; justify-content: space-between; gap: 18px; margin-bottom: 20px; }
+      h1 { font-size: clamp(24px, 3vw, 30px); letter-spacing: -.035em; margin: 0 0 7px; color: var(--navy); }
+      h2 { font-size: 16px; margin: 0; color: var(--navy); }
+      h3 { font-size: 13px; margin: 0; }
+      p { line-height: 1.55; }
+      .subheading { margin: 0; color: var(--muted); }
+      .button { border: 1px solid var(--line); background: white; color: var(--ink); border-radius: 7px; padding: 9px 13px; font-weight: 650; }
+      .button:hover { background: #f7f9fc; }
+      .button.primary { border-color: var(--blue); background: var(--blue); color: white; }
+      .button.primary:hover { background: #1d519f; }
+      .button:disabled { opacity: .48; cursor: not-allowed; }
+      .button.small { padding: 6px 9px; font-size: 12px; }
+      .metrics { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 14px; margin-bottom: 20px; }
+      .metric, .panel { background: var(--paper); border: 1px solid var(--line); border-radius: 10px; }
+      .metric { padding: 16px 18px; }
+      .metric .label { color: var(--muted); font-size: 12px; }
+      .metric .value { display: block; color: var(--navy); font-size: 25px; font-weight: 750; margin: 9px 0 4px; font-variant-numeric: tabular-nums; }
+      .metric .hint { color: var(--muted); font-size: 11px; }
+      .workspace { display: grid; grid-template-columns: minmax(290px, .82fr) minmax(0, 1.7fr); gap: 16px; align-items: start; }
+      .panel { overflow: hidden; }
+      .panel-head { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 16px 18px; border-bottom: 1px solid var(--line); }
+      .panel-body { padding: 18px; }
+      .case-list { max-height: 630px; overflow-y: auto; }
+      .case-row { display: block; width: 100%; text-align: left; border: 0; border-bottom: 1px solid #edf0f4; background: white; padding: 15px 17px; color: inherit; }
+      .case-row:hover { background: #f8faff; }
+      .case-row.selected { background: var(--blue-soft); box-shadow: inset 3px 0 var(--blue); }
+      .case-row-top, .case-meta, .doc-heading, .draft-actions, .analytics-head { display: flex; align-items: center; justify-content: space-between; gap: 10px; }
+      .case-name { display: block; font-weight: 700; margin-bottom: 5px; }
+      .case-meta { color: var(--muted); font-size: 11px; margin-top: 8px; }
+      #loginForm label { display: block; margin: 14px 0 6px; color: var(--muted); font-size: 12px; font-weight: 650; }
+      #loginForm input { width: 100%; padding: 10px 11px; border: 1px solid var(--line); border-radius: 7px; background: white; }
+      .pill { display: inline-flex; align-items: center; gap: 5px; border-radius: 99px; padding: 4px 8px; font-size: 10px; font-weight: 700; white-space: nowrap; }
+      .pill.overdue { background: var(--red-soft); color: var(--red); }
+      .pill.due { background: var(--amber-soft); color: var(--amber); }
+      .pill.on-track { background: var(--green-soft); color: var(--green); }
+      .pill.neutral { background: #f0f2f5; color: #586477; }
+      .search { width: min(280px, 44vw); border: 1px solid var(--line); border-radius: 7px; padding: 9px 10px; background: white; }
+      .filters { display: flex; gap: 8px; align-items: center; margin-bottom: 10px; }
+      .filters select { min-width: 120px; border: 1px solid var(--line); border-radius: 7px; padding: 8px; background: white; color: var(--ink); }
+      .case-title { margin-bottom: 4px; }
+      .case-details { color: var(--muted); margin: 0; font-size: 12px; }
+      .divider { height: 1px; border: 0; background: var(--line); margin: 17px 0; }
+      .doc-list { list-style: none; margin: 10px 0 0; padding: 0; }
+      .doc-item { display: flex; align-items: center; justify-content: space-between; gap: 14px; padding: 12px 0; border-bottom: 1px solid #edf0f4; }
+      .doc-item:last-child { border-bottom: 0; }
+      .doc-name { font-weight: 600; }
+      .doc-sub { display: block; font-size: 11px; color: var(--muted); margin-top: 4px; }
+      .doc-status { display: flex; align-items: center; gap: 9px; }
+      .empty { color: var(--muted); text-align: center; padding: 28px 14px; }
+      .callout { padding: 11px 13px; background: #f5f8fc; border: 1px solid var(--line); color: #4c5a70; border-radius: 7px; font-size: 12px; line-height: 1.5; margin-top: 14px; }
+      .callout.warning { background: var(--amber-soft); border-color: #f4dfb1; color: #72500d; }
+      .draft-box { margin-top: 16px; padding-top: 16px; border-top: 1px solid var(--line); }
+      .draft-box textarea { display: block; width: 100%; min-height: 220px; margin: 10px 0; resize: vertical; border: 1px solid var(--line); border-radius: 7px; padding: 12px; line-height: 1.55; color: var(--ink); }
+      .draft-actions { justify-content: flex-start; flex-wrap: wrap; }
+      .draft-actions .note { color: var(--muted); font-size: 11px; margin-left: auto; }
+      .toast { position: fixed; right: 22px; bottom: 20px; z-index: 3; max-width: min(420px, calc(100vw - 32px)); padding: 12px 16px; border-radius: 8px; background: var(--navy); color: white; box-shadow: 0 8px 26px #17243b33; }
+      .toast.error { background: #812c28; }
+      .hidden { display: none !important; }
+      .analytics-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+      .stat-line { display: flex; justify-content: space-between; gap: 12px; border-bottom: 1px solid #edf0f4; padding: 13px 0; }
+      .stat-line:last-child { border-bottom: 0; }
+      .stat-line span:first-child { color: var(--muted); }
+      .stat-line strong { text-align: right; font-variant-numeric: tabular-nums; }
+      .bar-track { height: 9px; background: #edf0f4; border-radius: 9px; overflow: hidden; margin-top: 10px; }
+      .bar-fill { height: 100%; background: var(--blue); border-radius: inherit; }
+      .disclaimer { color: var(--muted); font-size: 11px; margin: 15px 0 0; }
+      @media (max-width: 920px) {
+        .shell { padding: 0 18px 32px; }
+        .topbar { margin: 0 -18px 20px; padding: 0; }
+        .brand { padding-left: 18px; min-width: 190px; }
+        .top-tools { padding-right: 18px; }
+        .metrics { grid-template-columns: repeat(2, 1fr); }
+        .workspace { grid-template-columns: minmax(240px, .8fr) minmax(0, 1.4fr); }
+      }
+      @media (max-width: 680px) {
+        .topbar { min-height: 66px; }
+        .brand { min-width: 0; }
+        .top-tools .team-name { display: none; }
+        .top-tools { gap: 10px; }
+        .workspace, .analytics-grid { grid-template-columns: 1fr; }
+        .case-list { max-height: 320px; }
+        .page-heading { align-items: flex-start; flex-direction: column; }
+        .panel-head { align-items: flex-start; }
+        .search { width: 48vw; }
+        .metric { padding: 13px; }
+        .metric .value { font-size: 21px; }
+        .draft-actions .note { flex-basis: 100%; margin-left: 0; }
+      }
+    </style>
+  </head>
+  <body>
+    <header class="topbar">
+      <div class="brand">
+        <div class="brand-mark" aria-hidden="true">N</div>
+        <div><strong>NORTHGATE</strong><small>Corporate KYC Chaser</small></div>
+      </div>
+      <div class="top-tools">
+        <span>Active chases <strong id="activeCount">0</strong></span>
+        <span>Overdue <strong id="overdueCount">0</strong></span>
+        <span class="team-name" id="authStatus">Sign in to load cases</span>
+        <button type="button" class="button small" id="signInButton">Sign in</button>
+        <button type="button" class="button small hidden" id="logoutButton">Sign out</button>
+      </div>
+    </header>
+    <main class="shell">
+      <section class="panel hidden" id="loginPanel" style="max-width: 520px; margin: 0 auto 20px;">
+        <div class="panel-head"><h2>Sign in to Document Chaser</h2></div>
+        <div class="panel-body">
+          <p class="case-details">Use your Northgate KYC account. A Reviewer, Analyst, or Admin account is required.</p>
+          <form id="loginForm">
+            <label for="loginEmail">Work email</label>
+            <input id="loginEmail" type="email" autocomplete="username" required />
+            <label for="loginPassword">Password</label>
+            <input id="loginPassword" type="password" autocomplete="current-password" required />
+            <button type="submit" class="button primary">Sign in</button>
+            <p id="loginError" class="callout warning hidden" role="alert"></p>
+          </form>
+        </div>
+      </section>
+      <div id="appContent">
+      <nav class="nav" aria-label="Main navigation">
+        <button type="button" class="active" data-page="queue" aria-current="page">Chase queue</button>
+        <button type="button" data-page="review">Gap review &amp; email draft</button>
+        <button type="button" data-page="analytics">Turnaround analytics</button>
+      </nav>
+
+      <section id="queuePage">
+        <div class="page-heading">
+          <div>
+            <h1>Corporate onboarding chases</h1>
+            <p class="subheading">One clear request for every outstanding KYC document.</p>
+          </div>
+          <button type="button" class="button primary" id="showNewCase">Create onboarding case</button>
+        </div>
+        <section id="newCasePanel" class="panel hidden" style="margin-bottom: 16px;">
+          <div class="panel-head"><h2>New corporate onboarding case</h2></div>
+          <form id="newCaseForm" class="panel-body">
+            <label for="newCompany">Company name</label>
+            <input id="newCompany" required maxlength="255" />
+            <label for="newContact">Client contact</label>
+            <input id="newContact" required maxlength="255" />
+            <label for="newEmail">Client email</label>
+            <input id="newEmail" type="email" required maxlength="255" />
+            <button type="submit" class="button primary">Create case &amp; checklist</button>
+            <button type="button" class="button" id="cancelNewCase">Cancel</button>
+          </form>
+        </section>
+        <div class="metrics" id="queueMetrics"></div>
+        <div class="workspace">
+          <section class="panel" aria-labelledby="queueTitle">
+            <div class="panel-head">
+              <h2 id="queueTitle">Chase queue</h2>
+              <input id="caseSearch" class="search" type="search" placeholder="Search companies..." aria-label="Search companies" />
+            </div>
+            <div class="panel-body" style="padding-bottom: 8px;">
+              <div class="filters">
+                <select id="statusFilter" aria-label="Filter cases by status">
+                  <option value="all">All cases</option>
+                  <option value="missing">Documents outstanding</option>
+                  <option value="overdue">3-day reminder due</option>
+                  <option value="complete">All received</option>
+                </select>
+                <span id="caseCount" class="subheading" aria-live="polite"></span>
+              </div>
+            </div>
+            <div class="case-list" id="caseList"></div>
+          </section>
+          <section class="panel" id="casePanel" aria-live="polite">
+            <div class="panel-head"><div><h2 id="selectedCompany">Select an onboarding case</h2><p id="selectedSummary" class="case-details"></p></div></div>
+            <div class="panel-body" id="caseContent"></div>
+          </section>
+        </div>
+      </section>
+
+      <section id="reviewPage" class="hidden">
+        <div class="page-heading">
+          <div><h1>Consolidated gap review</h1><p class="subheading">Review every outstanding requirement, then prepare one client email.</p></div>
+          <select id="reviewCaseSelect" class="button" aria-label="Select case for gap review"></select>
+        </div>
+        <div class="workspace">
+          <section class="panel"><div class="panel-head"><h2>Document checklist</h2><span id="reviewDocCount" class="pill neutral"></span></div><div class="panel-body" id="reviewDocs"></div></section>
+          <section class="panel"><div class="panel-head"><h2>Personalised request draft</h2><span class="pill on-track">RM review required</span></div><div class="panel-body" id="reviewDraft"></div></section>
+        </div>
+      </section>
+
+      <section id="analyticsPage" class="hidden">
+        <div class="page-heading">
+          <div><h1>Turnaround analytics</h1><p class="subheading">Measure document request-to-receipt time and chase progress.</p></div>
+        </div>
+        <div class="metrics" id="analyticsMetrics"></div>
+        <div class="analytics-grid">
+          <section class="panel"><div class="panel-head"><h2>Document turnaround</h2></div><div class="panel-body" id="turnaroundPanel"></div></section>
+          <section class="panel"><div class="panel-head"><h2>Chase process</h2></div><div class="panel-body" id="processPanel"></div></section>
+        </div>
+        <p class="disclaimer">The 17-day baseline is the current document-chasing benchmark; tracked results use recorded request and receipt dates.</p>
+      </section>
+      <p class="disclaimer">Email drafts are saved to the backend. Review and send them yourself using your approved email client and secure document channel.</p>
+      </div>
+    </main>
+    <div id="toast" class="toast hidden" role="status" aria-live="polite"></div>
+    <script>
+      (() => {
+        'use strict';
+        const CHASER_API = window.location.port === '8000'
+          ? `${window.location.protocol}//${window.location.hostname}:8001`
+          : `${window.location.origin}/chaser-api`;
+        const KYC_API = `${window.location.origin}/api/v1`;
+        const TOKEN_KEY = 'northgate-document-chaser-access-token';
+        let token = sessionStorage.getItem(TOKEN_KEY) || '';
+        let cases = [];
+        let selectedId = '';
+        let activePage = 'queue';
+        let toastTimer;
+        const draftTimers = new Map();
+
+        function escapeHtml(value) {
+          return String(value ?? '').replace(/[&<>"']/g, (character) => ({
+            '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;',
+          })[character]);
+        }
+
+        async function apiRequest(path, options = {}) {
+          const response = await fetch(`${CHASER_API}${path}`, {
+            ...options,
+            headers: {
+              ...(options.body ? { 'Content-Type': 'application/json' } : {}),
+              Authorization: `Bearer ${token}`,
+              ...options.headers,
+            },
+          });
+          let data = {};
+          try {
+            data = await response.json();
+          } catch (error) {
+            if (response.ok) throw new Error('The Document Chaser API returned an invalid response.');
+          }
+          if (!response.ok) {
+            if (response.status === 401) signOut('Your session expired. Please sign in again.');
+            throw new Error(data.detail || `The Document Chaser API returned ${response.status}.`);
+          }
+          return data;
+        }
+
+        function replaceCase(updated) {
+          const index = cases.findIndex((item) => item.id === updated.id);
+          if (index === -1) cases.push(updated);
+          else cases[index] = updated;
+        }
+
+        function scheduleDraftSave(item, draft) {
+          clearTimeout(draftTimers.get(item.id));
+          draftTimers.set(item.id, setTimeout(async () => {
+            try {
+              const updated = await apiRequest(`/api/cases/${encodeURIComponent(item.id)}/draft`, {
+                method: 'PUT',
+                body: JSON.stringify({ draft }),
+              });
+              replaceCase(updated);
+            } catch (error) {
+              console.error('Unable to save the email draft.', error);
+              notify(error.message || 'Unable to save the email draft.', true);
+            }
+          }, 350));
+        }
+
+        async function loadCases() {
+          cases = await apiRequest('/api/cases');
+          if (!Array.isArray(cases)) throw new Error('The Document Chaser API returned an invalid case list.');
+          if (!cases.some((item) => item.id === selectedId)) selectedId = cases[0]?.id || '';
+          renderAll();
+        }
+
+        function signOut(message = '') {
+          token = '';
+          sessionStorage.removeItem(TOKEN_KEY);
+          cases = [];
+          selectedId = '';
+          document.getElementById('loginPanel').classList.toggle('hidden', !message);
+          document.getElementById('logoutButton').classList.add('hidden');
+          document.getElementById('signInButton').classList.remove('hidden');
+          document.getElementById('authStatus').textContent = 'Sign in to load cases';
+          if (message) {
+            const error = document.getElementById('loginError');
+            error.textContent = message;
+            error.classList.remove('hidden');
+          }
+          renderAll();
+        }
+
+        async function acceptToken(accessToken) {
+          token = accessToken;
+          sessionStorage.setItem(TOKEN_KEY, token);
+          document.getElementById('loginError').classList.add('hidden');
+          document.getElementById('loginPanel').classList.add('hidden');
+          document.getElementById('signInButton').classList.add('hidden');
+          document.getElementById('logoutButton').classList.remove('hidden');
+          document.getElementById('authStatus').textContent = 'Signed in';
+          try {
+            await loadCases();
+          } catch (error) {
+            console.error('Unable to load document-chaser cases.', error);
+            signOut(error.message || 'Could not load cases. Check that the services are running.');
+          }
+        }
+
+        function dayDifference(start, end = new Date()) {
+          return Math.max(0, Math.floor((new Date(end) - new Date(start)) / 86400000));
+        }
+
+        function missingDocs(item) {
+          return item.documents.filter((doc) => !doc.receivedAt);
+        }
+
+        function requestAge(item) {
+          if (item.lastRequestAt) return dayDifference(item.lastRequestAt);
+          const requested = missingDocs(item).map((doc) => doc.requestedAt).filter(Boolean);
+          return requested.length ? dayDifference(requested.sort()[0]) : null;
+        }
+
+        function caseStatus(item) {
+          if (!missingDocs(item).length) return { text: 'Complete', className: 'on-track' };
+          const age = requestAge(item);
+          if (age !== null && age >= 3) return { text: 'Reminder due', className: 'overdue' };
+          if (age !== null && age >= 2) return { text: 'Due soon', className: 'due' };
+          return { text: 'In progress', className: 'neutral' };
+        }
+
+        function formatDate(value) {
+          if (!value) return 'Not requested';
+          return new Intl.DateTimeFormat(undefined, { day: 'numeric', month: 'short', year: 'numeric' }).format(new Date(value));
+        }
+
+        function formatDuration(value) {
+          return value === null || !Number.isFinite(value) ? '—' : `${value.toFixed(1)} days`;
+        }
+
+        function average(values) {
+          return values.length ? values.reduce((sum, value) => sum + value, 0) / values.length : null;
+        }
+
+        function completedTurnarounds() {
+          return cases.flatMap((item) => item.documents
+            .filter((doc) => doc.receivedAt && doc.requestedAt)
+            .map((doc) => Math.max(0, (new Date(doc.receivedAt) - new Date(doc.requestedAt)) / 86400000)));
+        }
+
+        function notify(message, error = false) {
+          const toast = document.getElementById('toast');
+          toast.textContent = message;
+          toast.classList.toggle('error', error);
+          toast.classList.remove('hidden');
+          clearTimeout(toastTimer);
+          toastTimer = setTimeout(() => toast.classList.add('hidden'), 4200);
+        }
+
+        function renderTopMetrics() {
+          const active = cases.filter((item) => missingDocs(item).length).length;
+          const overdue = cases.filter((item) => caseStatus(item).text === 'Reminder due').length;
+          document.getElementById('activeCount').textContent = active;
+          document.getElementById('overdueCount').textContent = overdue;
+        }
+
+        function renderQueueMetrics() {
+          const active = cases.filter((item) => missingDocs(item).length).length;
+          const overdue = cases.filter((item) => caseStatus(item).text === 'Reminder due').length;
+          const requestedCases = cases.filter((item) => item.requestHistory.length);
+          const allAtOnce = requestedCases.filter((item) => item.requestHistory.some((batch) => batch.documentNames.length > 0)).length;
+          const allAtOncePct = requestedCases.length ? Math.round((allAtOnce / requestedCases.length) * 100) : 0;
+          document.getElementById('queueMetrics').innerHTML = `
+            <div class="metric"><span class="label">Open cases</span><strong class="value">${active}</strong><span class="hint">With documents outstanding</span></div>
+            <div class="metric"><span class="label">3-day reminders due</span><strong class="value">${overdue}</strong><span class="hint">At least one requested item remains outstanding</span></div>
+            <div class="metric"><span class="label">Consolidated requests</span><strong class="value">${allAtOncePct}%</strong><span class="hint">${allAtOnce} of ${requestedCases.length} requested cases sent together</span></div>
+            <div class="metric"><span class="label">Baseline chase delay</span><strong class="value">17 days</strong><span class="hint">Current onboarding benchmark</span></div>`;
+        }
+
+        function renderCaseList() {
+          const query = document.getElementById('caseSearch').value.trim().toLowerCase();
+          const filter = document.getElementById('statusFilter').value;
+          const filtered = cases.filter((item) => {
+            const matchesQuery = `${item.company} ${item.id} ${item.contact}`.toLowerCase().includes(query);
+            const status = caseStatus(item).text;
+            const matchesFilter = filter === 'all'
+              || (filter === 'missing' && missingDocs(item).length > 0)
+              || (filter === 'overdue' && status === 'Reminder due')
+              || (filter === 'complete' && status === 'Complete');
+            return matchesQuery && matchesFilter;
+          });
+          document.getElementById('caseCount').textContent = `${filtered.length} case${filtered.length === 1 ? '' : 's'}`;
+          const list = document.getElementById('caseList');
+          if (!filtered.length) {
+            list.innerHTML = '<div class="empty">No cases match these filters.</div>';
+            return;
+          }
+          list.innerHTML = filtered.map((item) => {
+            const status = caseStatus(item);
+            const missingCount = missingDocs(item).length;
+            return `<button type="button" class="case-row ${item.id === selectedId ? 'selected' : ''}" data-action="select-case" data-id="${escapeHtml(item.id)}" aria-pressed="${item.id === selectedId}">
+              <span class="case-row-top"><span class="case-name">${escapeHtml(item.company)}</span><span class="pill ${status.className}">${status.text}</span></span>
+              <span class="case-meta"><span>${escapeHtml(item.id)}</span><span>${missingCount} outstanding · ${item.chaseRounds} chase${item.chaseRounds === 1 ? '' : 's'}</span></span>
+            </button>`;
+          }).join('');
+        }
+
+        function buildDraft(item) {
+          const requested = missingDocs(item).map((doc) => doc.name);
+          if (!requested.length) return `Hello ${item.contact},\n\nThank you for providing the requested KYC documents for ${item.company}. We have received all items currently on our checklist.\n\nKind regards,\nElena Vance`;
+          const list = requested.map((name, index) => `${index + 1}. ${name}`).join('\n');
+          return `Hello ${item.contact},\n\nTo progress the corporate onboarding for ${item.company}, please provide the following outstanding KYC documents:\n\n${list}\n\nPlease submit the documents together through your usual secure Northgate submission channel. If you have any questions or need help accessing the channel, reply to this email and I will be happy to assist.\n\nKind regards,\nElena Vance`;
+        }
+
+        function ensureDraft(item) {
+          if (!item.draft) item.draft = buildDraft(item);
+          return item.draft;
+        }
+
+        function renderDocuments(item, targetId) {
+          const target = document.getElementById(targetId);
+          const docs = item.documents;
+          target.innerHTML = `<ul class="doc-list">${docs.map((doc, index) => {
+            const received = Boolean(doc.receivedAt);
+            const status = received
+              ? '<span class="pill on-track">Received</span>'
+              : doc.requestedAt
+                ? '<span class="pill due">Requested</span>'
+                : '<span class="pill neutral">Not requested</span>';
+            const detail = received
+              ? `Received ${formatDate(doc.receivedAt)}${doc.requestedAt ? ` · requested ${formatDate(doc.requestedAt)}` : ''}`
+              : doc.requestedAt ? `Requested ${formatDate(doc.requestedAt)}` : 'Awaiting consolidated request';
+            return `<li class="doc-item"><span><span class="doc-name">${escapeHtml(doc.name)}</span><span class="doc-sub">${detail}</span></span><span class="doc-status">${status}${received ? '' : `<button class="button small" type="button" data-action="mark-received" data-doc="${index}" data-id="${escapeHtml(item.id)}">Record received</button>`}</span></li>`;
+          }).join('')}</ul>`;
+        }
+
+        function renderCaseDetail() {
+          const item = cases.find((entry) => entry.id === selectedId);
+          const heading = document.getElementById('selectedCompany');
+          const summary = document.getElementById('selectedSummary');
+          const content = document.getElementById('caseContent');
+          if (!item) {
+            heading.textContent = 'Select an onboarding case';
+            summary.textContent = '';
+            content.innerHTML = '<div class="empty">Choose a case from the queue to review its requirements.</div>';
+            return;
+          }
+          const missing = missingDocs(item);
+          const status = caseStatus(item);
+          heading.textContent = item.company;
+          summary.textContent = `${item.id} · RM ${item.rm} · Client contact ${item.contact}`;
+          const age = missing.length ? requestAge(item) : null;
+          const reminder = age !== null && age >= 3
+            ? `<div class="callout warning"><strong>3-day reminder due.</strong> The client has not completed the request after ${age} days. Review the case and follow up manually.</div>`
+            : age !== null
+              ? `<div class="callout">Next reminder in ${Math.max(0, 3 - age)} day${3 - age === 1 ? '' : 's'} if no documents are received.</div>`
+              : '';
+          content.innerHTML = `
+            <div class="case-row-top"><span><span class="pill ${status.className}">${status.text}</span> <span class="case-details">${item.chaseRounds} chase round${item.chaseRounds === 1 ? '' : 's'}</span></span><span class="case-details">${item.email}</span></div>
+            ${reminder}
+            <div class="doc-heading" style="margin-top: 18px;"><h3>Required documents</h3><span class="case-details">${item.documents.length - missing.length} received · ${missing.length} outstanding</span></div>
+            <div id="queueDocs"></div>
+            <div class="callout">Document status is for tracking only. KYC analysts remain responsible for document review and any authenticity or compliance decisions.</div>
+            <div class="draft-box">
+              <div class="doc-heading"><h3>Consolidated email draft</h3><span class="pill neutral">Review before sending</span></div>
+              <p class="case-details">Prepared for ${escapeHtml(item.contact)} · ${escapeHtml(item.email)}</p>
+              <textarea id="caseDraft" aria-label="Edit consolidated email draft">${escapeHtml(ensureDraft(item))}</textarea>
+              <div class="draft-actions">
+                <button type="button" class="button" data-action="copy-draft" data-id="${escapeHtml(item.id)}">Copy draft</button>
+                <a class="button" id="emailLink" href="#">Open email client</a>
+                <button type="button" class="button primary" data-action="record-request" data-id="${escapeHtml(item.id)}" ${missing.length ? '' : 'disabled'}>Record manual send</button>
+                <span class="note">Nothing is sent automatically.</span>
+              </div>
+            </div>`;
+          renderDocuments(item, 'queueDocs');
+          updateEmailLink(item);
+          document.getElementById('caseDraft').addEventListener('input', (event) => {
+            item.draft = event.target.value;
+            updateEmailLink(item);
+            scheduleDraftSave(item, item.draft);
+            const reviewDraft = document.getElementById('reviewDraftText');
+            if (reviewDraft) reviewDraft.value = item.draft;
+          });
+        }
+
+        function updateEmailLink(item) {
+          const link = document.getElementById('emailLink');
+          const draft = document.getElementById('caseDraft');
+          if (!link || !draft) return;
+          const subject = `KYC documents required - ${item.company}`;
+          link.href = `mailto:${encodeURIComponent(item.email)}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(draft.value)}`;
+        }
+
+        function renderReview() {
+          const select = document.getElementById('reviewCaseSelect');
+          const selected = cases.find((item) => item.id === selectedId) || cases[0];
+          if (!selected) return;
+          selectedId = selected.id;
+          select.innerHTML = cases.map((item) => `<option value="${escapeHtml(item.id)}" ${item.id === selected.id ? 'selected' : ''}>${escapeHtml(item.company)} · ${escapeHtml(item.id)}</option>`).join('');
+          const missing = missingDocs(selected);
+          document.getElementById('reviewDocCount').textContent = `${missing.length} outstanding`;
+          document.getElementById('reviewDocs').innerHTML = `<p class="case-details">All requirements are shown in one checklist for ${escapeHtml(selected.company)}.</p>`;
+          renderDocuments(selected, 'reviewDocs');
+          document.getElementById('reviewDraft').innerHTML = `
+            <p class="case-details">To: ${escapeHtml(selected.contact)} &lt;${escapeHtml(selected.email)}&gt;</p>
+            <textarea id="reviewDraftText" aria-label="Edit consolidated email draft">${escapeHtml(ensureDraft(selected))}</textarea>
+            <div class="draft-actions">
+              <button type="button" class="button" data-action="copy-draft" data-id="${escapeHtml(selected.id)}">Copy draft</button>
+              <a class="button" id="reviewEmailLink" href="#">Open email client</a>
+              <button type="button" class="button primary" data-action="record-request" data-id="${escapeHtml(selected.id)}" ${missing.length ? '' : 'disabled'}>Record manual send</button>
+              <span class="note">Review and send from your own email client.</span>
+            </div>
+            <div class="callout">The email asks the client to use their usual secure Northgate submission channel. No document authenticity decision is automated.</div>`;
+          const draft = document.getElementById('reviewDraftText');
+          const link = document.getElementById('reviewEmailLink');
+          const refreshLink = () => {
+            link.href = `mailto:${encodeURIComponent(selected.email)}?subject=${encodeURIComponent(`KYC documents required - ${selected.company}`)}&body=${encodeURIComponent(draft.value)}`;
+          };
+          refreshLink();
+          draft.addEventListener('input', () => {
+            selected.draft = draft.value;
+            refreshLink();
+            const queueDraft = document.getElementById('caseDraft');
+            if (queueDraft && selectedId === selected.id) {
+              queueDraft.value = draft.value;
+              updateEmailLink(selected);
+            }
+            scheduleDraftSave(selected, selected.draft);
+          });
+        }
+
+        function renderAnalytics() {
+          const turnarounds = completedTurnarounds();
+          const averageTurnaround = average(turnarounds);
+          const activeCases = cases.filter((item) => missingDocs(item).length);
+          const averageRounds = average(cases.map((item) => item.chaseRounds));
+          const requestBatches = cases.flatMap((item) => item.requestHistory);
+          const requestedCases = cases.filter((item) => item.requestHistory.length);
+          const withinThreeDays = requestBatches.filter((batch) => batch.responseAt
+            && new Date(batch.responseAt).getTime() - new Date(batch.sentAt).getTime() <= 3 * 86_400_000).length;
+          const responseRate = requestBatches.length ? Math.round((withinThreeDays / requestBatches.length) * 100) : 0;
+          document.getElementById('analyticsMetrics').innerHTML = `
+            <div class="metric"><span class="label">Tracked document turnarounds</span><strong class="value">${turnarounds.length}</strong><span class="hint">Received documents with a recorded request date</span></div>
+            <div class="metric"><span class="label">Average chase rounds</span><strong class="value">${averageRounds === null ? '—' : averageRounds.toFixed(1)}</strong><span class="hint">Across ${cases.length} sample onboarding cases</span></div>
+            <div class="metric"><span class="label">Responded within 3 days</span><strong class="value">${responseRate}%</strong><span class="hint">Request batches answered within three days</span></div>
+            <div class="metric"><span class="label">Open onboarding cases</span><strong class="value">${activeCases.length}</strong><span class="hint">Out of ${cases.length} tracked cases</span></div>`;
+          const progress = averageTurnaround === null ? 0 : Math.min(100, Math.round((averageTurnaround / 17) * 100));
+          document.getElementById('turnaroundPanel').innerHTML = `
+            <div class="stat-line"><span>Current baseline · document chasing</span><strong>17.0 days</strong></div>
+            <div class="stat-line"><span>Tracked average · requested to received</span><strong>${formatDuration(averageTurnaround)}</strong></div>
+            <div class="stat-line"><span>Tracked sample size</span><strong>${turnarounds.length} documents</strong></div>
+            <div class="bar-track" aria-label="Tracked average relative to 17-day baseline"><div class="bar-fill" style="width:${progress}%"></div></div>
+            <p class="disclaimer">${averageTurnaround === null ? 'Turnaround comparison will appear as requested documents are recorded as received.' : `${averageTurnaround <= 17 ? 'Tracked average is below' : 'Tracked average is above'} the 17-day baseline. This sample is illustrative, not a production cohort.`}</p>`;
+          document.getElementById('processPanel').innerHTML = `
+            <div class="stat-line"><span>Consolidated request coverage</span><strong>${requestedCases.length ? Math.round((requestedCases.length / cases.length) * 100) : 0}%</strong></div>
+            <div class="stat-line"><span>Average chase rounds per case</span><strong>${averageRounds === null ? '—' : averageRounds.toFixed(1)}</strong></div>
+            <div class="stat-line"><span>Response within 3 days</span><strong>${responseRate}%</strong></div>
+            <div class="stat-line"><span>Monthly onboarding reference volume</span><strong>~400 clients</strong></div>
+            <p class="disclaimer">RM manual follow-up time is not measured in this demo. The 62-day overall onboarding duration remains a baseline reference.</p>`;
+        }
+
+        function renderAll() {
+          renderTopMetrics();
+          renderQueueMetrics();
+          renderCaseList();
+          renderCaseDetail();
+          renderReview();
+          renderAnalytics();
+        }
+
+        function switchPage(page) {
+          activePage = page;
+          for (const [name, id] of [['queue', 'queuePage'], ['review', 'reviewPage'], ['analytics', 'analyticsPage']]) {
+            document.getElementById(id).classList.toggle('hidden', page !== name);
+          }
+          document.querySelectorAll('.nav button').forEach((button) => {
+            const active = button.dataset.page === page;
+            button.classList.toggle('active', active);
+            if (active) button.setAttribute('aria-current', 'page');
+            else button.removeAttribute('aria-current');
+          });
+        }
+
+        async function recordRequest(id) {
+          const item = cases.find((entry) => entry.id === id);
+          if (!item) return;
+          const missing = missingDocs(item);
+          if (!missing.length) {
+            notify('There are no outstanding documents to request.', true);
+            return;
+          }
+          if (!confirm(`Confirm you have manually sent this reviewed request to ${item.contact}? The app will only record the request; it will not send an email.`)) return;
+          try {
+            const updated = await apiRequest(`/api/cases/${encodeURIComponent(id)}/requests`, {
+              method: 'POST',
+              body: JSON.stringify({ manualSendConfirmed: true }),
+            });
+            replaceCase(updated);
+            renderAll();
+            notify(`Manual request recorded for ${item.company}. No email was sent by this app.`);
+          } catch (error) {
+            console.error('Unable to record the manual client request.', error);
+            notify(error.message || 'Unable to record the manual request.', true);
+          }
+        }
+
+        async function copyDraft(id) {
+          const item = cases.find((entry) => entry.id === id);
+          if (!item) return;
+          const editor = document.getElementById('caseDraft') || document.getElementById('reviewDraftText');
+          const text = editor && selectedId === id ? editor.value : ensureDraft(item);
+          try {
+            await navigator.clipboard.writeText(text);
+            notify('Draft copied. Review and send it manually.');
+          } catch (error) {
+            console.error('Unable to copy the email draft.', error);
+            notify('Could not access the clipboard. Select and copy the draft text manually.', true);
+          }
+        }
+
+        document.querySelector('.nav').addEventListener('click', (event) => {
+          const button = event.target.closest('button[data-page]');
+          if (button) switchPage(button.dataset.page);
+        });
+
+        document.getElementById('caseList').addEventListener('click', (event) => {
+          const button = event.target.closest('[data-action="select-case"]');
+          if (!button) return;
+          selectedId = button.dataset.id;
+          renderAll();
+        });
+
+        document.addEventListener('click', (event) => {
+          const action = event.target.closest('[data-action]');
+          if (!action) return;
+          if (action.dataset.action === 'record-request') void recordRequest(action.dataset.id);
+          if (action.dataset.action === 'copy-draft') copyDraft(action.dataset.id);
+          if (action.dataset.action === 'mark-received') {
+            const item = cases.find((entry) => entry.id === action.dataset.id);
+            const doc = item?.documents[Number(action.dataset.doc)];
+            if (!doc || doc.receivedAt) return;
+            void apiRequest(`/api/cases/${encodeURIComponent(item.id)}/documents/${encodeURIComponent(doc.name)}/received`, {
+              method: 'POST',
+              body: JSON.stringify({}),
+            }).then((updated) => {
+              replaceCase(updated);
+              renderAll();
+              notify(`${doc.name} recorded as received. Document review remains with the KYC analyst.`);
+            }).catch((error) => {
+              console.error('Unable to record document receipt.', error);
+              notify(error.message || 'Unable to record document receipt.', true);
+            });
+          }
+        });
+
+        document.getElementById('caseSearch').addEventListener('input', renderCaseList);
+        document.getElementById('statusFilter').addEventListener('change', renderCaseList);
+        document.getElementById('showNewCase').addEventListener('click', () => {
+          document.getElementById('newCasePanel').classList.remove('hidden');
+          document.getElementById('newCompany').focus();
+        });
+        document.getElementById('cancelNewCase').addEventListener('click', () => {
+          document.getElementById('newCasePanel').classList.add('hidden');
+          document.getElementById('newCaseForm').reset();
+        });
+        document.getElementById('newCaseForm').addEventListener('submit', async (event) => {
+          event.preventDefault();
+          const submit = event.currentTarget.querySelector('button[type="submit"]');
+          submit.disabled = true;
+          try {
+            const created = await apiRequest('/api/cases', {
+              method: 'POST',
+              body: JSON.stringify({
+                company: document.getElementById('newCompany').value.trim(),
+                contact: document.getElementById('newContact').value.trim(),
+                email: document.getElementById('newEmail').value.trim(),
+              }),
+            });
+            cases.unshift(created);
+            selectedId = created.id;
+            document.getElementById('newCasePanel').classList.add('hidden');
+            event.currentTarget.reset();
+            renderAll();
+            notify(`Onboarding checklist created for ${created.company}.`);
+          } catch (error) {
+            console.error('Unable to create the onboarding case.', error);
+            notify(error.message || 'Unable to create the onboarding case.', true);
+          } finally {
+            submit.disabled = false;
+          }
+        });
+        document.getElementById('reviewCaseSelect').addEventListener('change', (event) => {
+          selectedId = event.target.value;
+          renderAll();
+        });
+        document.getElementById('loginForm').addEventListener('submit', async (event) => {
+          event.preventDefault();
+          const error = document.getElementById('loginError');
+          error.classList.add('hidden');
+          const submitButton = event.currentTarget.querySelector('button[type="submit"]');
+          submitButton.disabled = true;
+          try {
+            const response = await fetch(`${KYC_API}/auth/login`, {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify({
+                email: document.getElementById('loginEmail').value,
+                password: document.getElementById('loginPassword').value,
+              }),
+            });
+            const result = await response.json();
+            if (!response.ok || !result.access_token) {
+              throw new Error(result.detail || 'Sign in failed. Check your credentials.');
+            }
+            await acceptToken(result.access_token);
+          } catch (loginError) {
+            error.textContent = loginError.message || 'Sign in failed.';
+            error.classList.remove('hidden');
+          } finally {
+            submitButton.disabled = false;
+          }
+        });
+
+        document.getElementById('signInButton').addEventListener('click', () => {
+          document.getElementById('loginPanel').classList.remove('hidden');
+          document.getElementById('loginEmail').focus();
+        });
+        document.getElementById('logoutButton').addEventListener('click', () => signOut());
+        if (token) {
+          void acceptToken(token);
+        } else {
+          signOut();
+        }
+      })();
+    </script>
+  </body>
+</html>

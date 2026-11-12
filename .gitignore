@@ -1,0 +1,33 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.egg-info/
+.venv/
+venv/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.deepeval/
+.coverage
+htmlcov/
+
+# Node / TypeScript
+node_modules/
+backend/chaser-ts/dist/
+npm-debug.log*
+
+# Local databases, uploads, logs, and environment files
+*.db
+*.sqlite
+*.sqlite3
+.env
+.env.*
+!.env.example
+backend/app/uploads/
+backend/pytest_output.txt
+
+# Archives and OS files
+*.zip
+.DS_Store
+Thumbs.db

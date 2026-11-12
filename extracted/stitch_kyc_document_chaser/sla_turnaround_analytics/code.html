@@ -1,0 +1,652 @@
+<!DOCTYPE html>
+
+<html lang="en"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0" name="viewport"/><meta content="web_standard" name="shell-type"/><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/><link href="https://fonts.googleapis.com" rel="preconnect"/><link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=Plus+Jakarta+Sans:wght@600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/><style>@layer base{html,body{margin:0;padding:0;}body{overscroll-behavior:none;}main>:first-child{margin-top:0!important;}main>:last-child{margin-bottom:0!important;}}::-webkit-scrollbar{display:none;}</style><script src="https://cdn.tailwindcss.com"></script><script id="tailwind-config">tailwind.config={darkMode:"class",theme:{extend:{colors:{"surface":"#f8f9ff","primary-container":"#0d1c32","secondary-fixed":"#dbe1ff","on-tertiary-container":"#c76c00","surface-variant":"#d3e4fe","secondary-container":"#316bf3","tertiary":"#000000","background":"#f8f9ff","on-secondary-fixed":"#00174b","surface-container-highest":"#d3e4fe","surface-tint":"#515f78","surface-container-lowest":"#ffffff","on-error-container":"#93000a","on-primary-container":"#76849f","on-tertiary":"#ffffff","outline":"#75777e","inverse-primary":"#b9c7e4","on-secondary-container":"#fefcff","secondary":"#0051d5","surface-bright":"#f8f9ff","on-primary":"#ffffff","error-container":"#ffdad6","on-surface":"#0b1c30","primary":"#000000","on-tertiary-fixed-variant":"#6e3900","outline-variant":"#c5c6cd","primary-fixed":"#d6e3ff","surface-container-high":"#dce9ff","error":"#ba1a1a","surface-container":"#e5eeff","on-primary-fixed-variant":"#39475f","surface-dim":"#cbdbf5","surface-container-low":"#eff4ff","on-error":"#ffffff","on-secondary":"#ffffff","on-primary-fixed":"#0d1c32","tertiary-container":"#2f1500","on-secondary-fixed-variant":"#003ea8","secondary-fixed-dim":"#b4c5ff","inverse-on-surface":"#eaf1ff","inverse-surface":"#213145","primary-fixed-dim":"#b9c7e4","on-surface-variant":"#44474d","tertiary-fixed-dim":"#ffb77d","tertiary-fixed":"#ffdcc3","on-background":"#0b1c30","on-tertiary-fixed":"#2f1500"},borderRadius:{"DEFAULT":"0.125rem","lg":"0.25rem","xl":"0.5rem","full":"0.75rem"},spacing:{"margin":"1rem","gutter":"1rem","gutter-desktop":"1.5rem","space-xs":"0.25rem","space-sm":"0.5rem","space-xl":"1.5rem","margin-desktop":"2rem","space-md":"0.75rem","space-lg":"1rem"},fontFamily:{"headline-lg":["Plus Jakarta Sans"],"headline-lg-mobile":["Plus Jakarta Sans"],"headline-xl":["Plus Jakarta Sans"],"label-md":["Inter"],"label-sm":["Inter"],"body-md":["Inter"],"headline-md":["Plus Jakarta Sans"],"headline-xl-mobile":["Plus Jakarta Sans"],"body-lg":["Inter"],"metric-tabular":["Inter"],"body-sm":["Inter"],"title-sm":["Plus Jakarta Sans"]},fontSize:{"headline-lg":["1.5rem",{lineHeight:"2rem",letterSpacing:"-0.02em",fontWeight:"600"}],"headline-lg-mobile":["1.25rem",{lineHeight:"1.75rem",letterSpacing:"-0.015em",fontWeight:"600"}],"headline-xl":["2rem",{lineHeight:"2.5rem",letterSpacing:"-0.025em",fontWeight:"700"}],"label-md":["0.75rem",{lineHeight:"1rem",letterSpacing:"0.01em",fontWeight:"500"}],"label-sm":["0.6875rem",{lineHeight:"0.875rem",letterSpacing:"0.04em",fontWeight:"600"}],"body-md":["0.875rem",{lineHeight:"1.25rem",fontWeight:"400"}],"headline-md":["1.125rem",{lineHeight:"1.5rem",letterSpacing:"-0.015em",fontWeight:"600"}],"headline-xl-mobile":["1.5rem",{lineHeight:"2rem",letterSpacing:"-0.02em",fontWeight:"700"}],"body-lg":["1rem",{lineHeight:"1.5rem",fontWeight:"400"}],"metric-tabular":["0.875rem",{lineHeight:"1.25rem",letterSpacing:"-0.01em",fontWeight:"500"}],"body-sm":["0.75rem",{lineHeight:"1rem",fontWeight:"400"}],"title-sm":["0.875rem",{lineHeight:"1.25rem",letterSpacing:"-0.01em",fontWeight:"600"}]}}}};</script></head><body class="bg-surface font-body-md text-on-surface antialiased min-h-screen"><header class="fixed top-0 w-full z-50 bg-surface-container-lowest shadow-[0_1px_8px_rgba(0,0,0,0.04)]"><div class="h-28 w-full px-gutter-desktop flex flex-col justify-between"><div class="h-16 flex items-center justify-between gap-space-lg"><div class="flex items-center gap-space-md"><img alt="Northgate Corporate Banking Logo" class="h-8 w-auto object-contain" src="https://lh3.googleusercontent.com/aida/ALJJyrBpYT8JayNsgMkdNHu1wAI7yOjaqnJBk1cd1G3JH3ymbUjP84AP2et_InuWa9zyIoxcqcPDtiGzTnJ-qnM7FhdJeR5wsgPAJ_gsQMXdaIgDAu8e0mIMt_QKWIt-oZF7fPLbrnadUDiXaiLmnvJARLgMOF4DuCnvZzp6nrssIb-3Ro8YnKkQu9_HBTgx-AGxXE0DYrC6ktIk6-MV3txaN26c2PlTIBc5vBVy4AUDdpicow"/><div class="flex flex-col"><span class="font-title-sm text-title-sm text-on-surface uppercase tracking-wider">Northgate</span><span class="font-label-sm text-label-sm text-on-surface-variant font-normal">Corporate KYC Chaser</span></div></div><div class="flex-1 max-w-xl mx-space-md"><div class="relative flex items-center"><span class="material-symbols-outlined absolute left-space-md text-outline text-[1.125rem] pointer-events-none">search</span><input class="w-full pl-9 pr-space-md py-space-xs bg-surface-container-low text-on-surface font-body-sm text-body-sm rounded-lg focus:outline-none focus:bg-surface-container-lowest placeholder:text-outline" placeholder="Search entities, LEI code, or KYC case ID..." type="text"/></div></div><div class="flex items-center gap-space-md"><div class="hidden xl:flex items-center gap-space-sm px-space-md py-space-xs bg-surface-container-low rounded-lg"><div class="flex items-center gap-space-xs"><span class="font-label-sm text-label-sm text-on-surface-variant uppercase">Active Chases:</span><span class="font-metric-tabular text-metric-tabular text-on-surface font-semibold">142</span></div><span class="text-outline text-label-sm">|</span><div class="flex items-center gap-space-xs"><span class="font-label-sm text-label-sm text-on-tertiary-container uppercase">Overdue SLA:</span><span class="font-metric-tabular text-metric-tabular text-on-tertiary-container font-semibold">19</span></div></div><div class="relative flex items-center justify-center p-space-xs rounded-lg hover:bg-surface-container-high transition-colors cursor-pointer"><span class="material-symbols-outlined text-on-surface-variant text-[1.25rem]">notifications</span><span class="absolute top-0 right-0 w-2 h-2 bg-on-tertiary-container rounded-full"></span></div><div class="flex items-center gap-space-md pl-space-sm"><div class="flex flex-col text-right hidden sm:flex"><span class="font-title-sm text-title-sm text-on-surface">Elena Vance</span><span class="font-label-sm text-label-sm text-on-surface-variant font-normal">Senior RM, Institutional Coverage</span></div><img alt="Profile" class="w-8 h-8 rounded-full object-cover ring-1 ring-surface-container-high" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDQYabmnXm92wuw_jkA9oxdQrLpp0Nwb2RTZLpVLBmdXFJ8VkcRpP7GM5SAUx_GhcxppjRD0rjFjCzZoE_RqSlo_tSGXdfz8ISiKr0N-A5n40Kp9jTfwUTqUXbchg7dluAy4-a3a0ZZYygTbpeE487xRGzBhYHLh-TuHIukeBD1rgO-_vuZvxPvlRK1Nm_XzbQeBGdfjYMaPu9EkayfEOQDH_CRGCBhjVztLWJkwD5r"/></div></div></div><nav class="h-12 flex items-center gap-space-xs overflow-x-auto" data-active-classes="text-secondary bg-surface-container-high font-semibold rounded-lg"><a class="px-space-md py-space-xs font-label-md text-label-md text-on-surface-variant hover:text-on-surface hover:bg-surface-container-low transition-colors whitespace-nowrap" data-path="chase-queue-pipeline" href="#">Chase Queue &amp; Pipeline</a><a class="px-space-md py-space-xs font-label-md text-label-md text-on-surface-variant hover:text-on-surface hover:bg-surface-container-low transition-colors whitespace-nowrap" data-path="consolidated-gap-review-ai-drafter" href="#">Consolidated Gap Review &amp; AI Drafter</a><a class="px-space-md py-space-xs font-label-md text-label-md text-on-surface-variant hover:text-on-surface hover:bg-surface-container-low transition-colors whitespace-nowrap" data-path="corporate-client-portal-preview" href="#">Corporate Client Portal Preview</a><a aria-current="page" class="px-space-md py-space-xs transition-colors whitespace-nowrap text-secondary bg-surface-container-high font-semibold rounded-lg" data-path="sla-turnaround-analytics" href="#">SLA &amp; Turnaround Analytics</a></nav></div></header><main class="w-full pt-28 bg-surface px-gutter-desktop min-h-[calc(100vh-3.5rem)]"><div class="flex flex-col w-full">
+<!-- Top Cockpit Control & SLA Velocity Summary -->
+<div class="w-full py-space-md flex flex-col lg:flex-row lg:items-center justify-between gap-space-md">
+<div class="flex flex-col">
+<div class="flex items-center gap-space-xs mb-1">
+<span class="px-space-xs py-0.5 rounded-DEFAULT bg-primary-container text-surface-container font-label-sm text-label-sm uppercase tracking-wider">Institutional Audit Mode</span>
+<span class="text-outline text-label-sm font-label-sm">•</span>
+<span class="text-on-surface-variant font-label-sm text-label-sm">Dataset: Global Multi-Entity Cohort (400 Onboardings)</span>
+</div>
+<h1 class="font-headline-xl text-headline-xl text-on-surface tracking-tight">SLA &amp; Turnaround Analytics</h1>
+<p class="font-body-md text-body-md text-on-surface-variant mt-0.5">Measurement Period: Q3 Target Benchmark • Primary Metric: <span class="font-title-sm text-title-sm text-on-surface">Document Turnaround Time (DTR = Date Received - Date Requested)</span></p>
+</div>
+<div class="flex flex-wrap items-center gap-space-sm">
+<div class="inline-flex items-center bg-surface-container-lowest p-space-xs rounded-lg shadow-sm">
+<button class="px-space-md py-space-xs rounded-DEFAULT bg-primary-container text-surface-container font-label-md text-label-md">Last 30 Days</button>
+<button class="px-space-md py-space-xs rounded-DEFAULT text-on-surface-variant hover:text-on-surface font-label-md text-label-md transition-colors">Quarter-to-Date</button>
+<button class="px-space-md py-space-xs rounded-DEFAULT text-on-surface-variant hover:text-on-surface font-label-md text-label-md transition-colors">YTD Baseline</button>
+</div>
+<button class="inline-flex items-center gap-space-xs px-space-md py-space-xs bg-surface-container-high hover:bg-surface-variant text-on-surface font-label-md text-label-md rounded-lg shadow-sm transition-all" onclick="alert('Exporting Complete Compliance Audit Bundle (Signed SHA-256 PDF &amp; Tabular CSV)...')">
+<span class="material-symbols-outlined text-[1.125rem]">file_download</span>
+        Download Audit Report
+      </button>
+<button class="inline-flex items-center gap-space-xs px-space-md py-space-xs bg-primary text-on-primary hover:bg-on-surface font-label-md text-label-md rounded-lg shadow-sm transition-all">
+<span class="material-symbols-outlined text-[1.125rem]">refresh</span>
+        Recalculate SLA
+      </button>
+</div>
+</div>
+<!-- Primary Metric Comparison Hero Cards (5 Key Metrics) -->
+<div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-5 gap-space-md my-space-md">
+<!-- Metric 1: Doc Turnaround Time -->
+<div class="bg-surface-container-lowest rounded-xl p-space-md shadow-sm relative overflow-hidden flex flex-col justify-between">
+<div class="flex items-center justify-between">
+<span class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider">Document Chasing Bottleneck</span>
+<span class="material-symbols-outlined text-secondary text-[1.25rem]">timelapse</span>
+</div>
+<div class="mt-space-sm mb-space-xs">
+<div class="flex items-baseline gap-space-xs">
+<span class="font-headline-xl text-headline-xl text-on-surface font-semibold">7.8</span>
+<span class="font-title-sm text-title-sm text-on-surface-variant">days avg</span>
+</div>
+<div class="flex items-center gap-space-xs mt-1">
+<span class="inline-flex items-center font-label-sm text-label-sm text-on-error-container bg-error-container/40 px-1.5 py-0.5 rounded-DEFAULT">
+<span class="material-symbols-outlined text-[0.875rem] mr-0.5">trending_down</span> -54.1%
+          </span>
+<span class="font-label-sm text-label-sm text-on-surface-variant">vs 17.0d baseline</span>
+</div>
+</div>
+<div class="pt-space-xs">
+<div class="w-full bg-surface-container h-1.5 rounded-full overflow-hidden">
+<div class="bg-secondary h-full rounded-full" style="width: 65%;"></div>
+</div>
+<span class="font-label-sm text-label-sm text-on-surface-variant mt-1 block">Target: &lt; 5.0 days (65% path met)</span>
+</div>
+</div>
+<!-- Metric 2: Total Onboarding Time -->
+<div class="bg-surface-container-lowest rounded-xl p-space-md shadow-sm relative overflow-hidden flex flex-col justify-between">
+<div class="flex items-center justify-between">
+<span class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider">Total Onboarding Cycle</span>
+<span class="material-symbols-outlined text-on-surface-variant text-[1.25rem]">schedule</span>
+</div>
+<div class="mt-space-sm mb-space-xs">
+<div class="flex items-baseline gap-space-xs">
+<span class="font-headline-xl text-headline-xl text-on-surface font-semibold">48.4</span>
+<span class="font-title-sm text-title-sm text-on-surface-variant">days</span>
+</div>
+<div class="flex items-center gap-space-xs mt-1">
+<span class="inline-flex items-center font-label-sm text-label-sm text-on-error-container bg-error-container/40 px-1.5 py-0.5 rounded-DEFAULT">
+<span class="material-symbols-outlined text-[0.875rem] mr-0.5">arrow_downward</span> -13.6d
+          </span>
+<span class="font-label-sm text-label-sm text-on-surface-variant">from 62.0d historic</span>
+</div>
+</div>
+<div class="pt-space-xs">
+<span class="font-label-sm text-label-sm text-on-surface-variant block">Institutional SLA Clearance: 96.8%</span>
+</div>
+</div>
+<!-- Metric 3: Average Chase Rounds -->
+<div class="bg-surface-container-lowest rounded-xl p-space-md shadow-sm relative overflow-hidden flex flex-col justify-between">
+<div class="flex items-center justify-between">
+<span class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider">Average Chase Rounds</span>
+<span class="material-symbols-outlined text-secondary text-[1.25rem]">autorenew</span>
+</div>
+<div class="mt-space-sm mb-space-xs">
+<div class="flex items-baseline gap-space-xs">
+<span class="font-headline-xl text-headline-xl text-on-surface font-semibold">1.3</span>
+<span class="font-title-sm text-title-sm text-on-surface-variant">rnds / case</span>
+</div>
+<div class="flex items-center gap-space-xs mt-1">
+<span class="inline-flex items-center font-label-sm text-label-sm text-on-error-container bg-error-container/40 px-1.5 py-0.5 rounded-DEFAULT">
+<span class="material-symbols-outlined text-[0.875rem] mr-0.5">trending_down</span> -56.7%
+          </span>
+<span class="font-label-sm text-label-sm text-on-surface-variant">from 3.0 baseline</span>
+</div>
+</div>
+<div class="pt-space-xs">
+<span class="font-label-sm text-label-sm text-on-surface-variant block">Zero multi-ping loops: 68.2%</span>
+</div>
+</div>
+<!-- Metric 4: Consolidated Gap Requests -->
+<div class="bg-surface-container-lowest rounded-xl p-space-md shadow-sm relative overflow-hidden flex flex-col justify-between">
+<div class="flex items-center justify-between">
+<span class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider">Consolidated Gap Outreach</span>
+<span class="material-symbols-outlined text-on-tertiary-container text-[1.25rem]">folder_zip</span>
+</div>
+<div class="mt-space-sm mb-space-xs">
+<div class="flex items-baseline gap-space-xs">
+<span class="font-headline-xl text-headline-xl text-on-surface font-semibold">91.4%</span>
+<span class="font-title-sm text-title-sm text-on-surface-variant">all-in-one</span>
+</div>
+<div class="flex items-center gap-space-xs mt-1">
+<span class="inline-flex items-center font-label-sm text-label-sm text-on-secondary-fixed bg-secondary-fixed px-1.5 py-0.5 rounded-DEFAULT">
+<span class="material-symbols-outlined text-[0.875rem] mr-0.5">trending_up</span> +67.4%
+          </span>
+<span class="font-label-sm text-label-sm text-on-surface-variant">vs 24.0% fragmented</span>
+</div>
+</div>
+<div class="pt-space-xs">
+<span class="font-label-sm text-label-sm text-on-surface-variant block">Client fatigue index: -82%</span>
+</div>
+</div>
+<!-- Metric 5: Clients Responding < 3 Days -->
+<div class="bg-surface-container-lowest rounded-xl p-space-md shadow-sm relative overflow-hidden flex flex-col justify-between">
+<div class="flex items-center justify-between">
+<span class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider">Clients Responding ≤ 3 Days</span>
+<span class="material-symbols-outlined text-secondary-container text-[1.25rem]">speed</span>
+</div>
+<div class="mt-space-sm mb-space-xs">
+<div class="flex items-baseline gap-space-xs">
+<span class="font-headline-xl text-headline-xl text-on-surface font-semibold">74.2%</span>
+<span class="font-title-sm text-title-sm text-on-surface-variant">within SLA</span>
+</div>
+<div class="flex items-center gap-space-xs mt-1">
+<span class="inline-flex items-center font-label-sm text-label-sm text-on-secondary-fixed bg-secondary-fixed px-1.5 py-0.5 rounded-DEFAULT">
+<span class="material-symbols-outlined text-[0.875rem] mr-0.5">arrow_upward</span> +43.2%
+          </span>
+<span class="font-label-sm text-label-sm text-on-surface-variant">from 31.0% prior</span>
+</div>
+</div>
+<div class="pt-space-xs">
+<span class="font-label-sm text-label-sm text-on-surface-variant block">Automated cadence triggered</span>
+</div>
+</div>
+</div>
+<!-- Operational Highlight Banner: RM Hours Saved -->
+<div class="w-full bg-primary-container text-surface-container-lowest rounded-xl p-space-lg mb-space-xl shadow-md flex flex-col lg:flex-row lg:items-center justify-between gap-space-lg relative overflow-hidden">
+<div class="absolute right-0 top-0 w-96 h-full bg-gradient-to-l from-secondary/20 via-transparent to-transparent pointer-events-none"></div>
+<div class="flex items-start sm:items-center gap-space-md z-10">
+<div class="w-12 h-12 rounded-lg bg-surface-container-lowest/10 flex items-center justify-center text-surface-container-lowest shrink-0">
+<span class="material-symbols-outlined text-[1.75rem]">psychology_alt</span>
+</div>
+<div class="flex flex-col">
+<div class="flex items-center gap-space-sm">
+<span class="font-headline-md text-headline-md text-surface-container-lowest">Productivity Dividend &amp; Manual Effort Abatement</span>
+<span class="px-space-xs py-0.5 rounded-DEFAULT bg-secondary-fixed text-on-secondary-fixed font-label-sm text-label-sm">Active ROI</span>
+</div>
+<p class="font-body-md text-body-md text-on-primary-container max-w-2xl mt-0.5">
+          Eliminating ad-hoc emails via AI Consolidated Drafting saved <span class="text-surface-container-lowest font-semibold">620 hours</span> this month across <span class="text-surface-container-lowest font-semibold">400 active onboarding cases</span>. Equivalent to 3.8 FTE front-office capacity redeployed to cross-border client structuring.
+        </p>
+</div>
+</div>
+<div class="flex items-center gap-space-lg z-10 shrink-0">
+<div class="flex flex-col text-right">
+<span class="font-headline-xl text-headline-xl text-surface-container-lowest font-bold">620 hrs</span>
+<span class="font-label-sm text-label-sm text-on-primary-container uppercase tracking-wider">Saved This Month</span>
+</div>
+<div class="h-10 w-px bg-surface-container-lowest/20"></div>
+<div class="flex flex-col text-right">
+<span class="font-headline-xl text-headline-xl text-secondary-fixed font-bold">$93,000</span>
+<span class="font-label-sm text-label-sm text-on-primary-container uppercase tracking-wider">Direct OPEX Value</span>
+</div>
+</div>
+</div>
+<!-- Deep Visualizations Grid (3 Core Charts) -->
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-space-md mb-space-xl">
+<!-- Chart 1: Turnaround Time Distribution (Days) -->
+<div class="lg:col-span-7 bg-surface-container-lowest rounded-xl p-space-lg shadow-sm flex flex-col justify-between">
+<div class="flex items-center justify-between pb-space-sm mb-space-sm">
+<div class="flex flex-col">
+<div class="flex items-center gap-space-xs">
+<span class="font-headline-md text-headline-md text-on-surface">Document Turnaround Time Distribution</span>
+<span class="material-symbols-outlined text-outline text-[1.125rem]" title="Days between issuance of chase request and client verified upload">info</span>
+</div>
+<span class="font-body-sm text-body-sm text-on-surface-variant">Baseline (Historic 17d) vs Post-Document Chaser (Current 7.8d Average)</span>
+</div>
+<div class="flex items-center gap-space-md font-label-sm text-label-sm">
+<div class="flex items-center gap-1.5">
+<span class="w-3 h-3 rounded-DEFAULT bg-outline-variant inline-block"></span>
+<span class="text-on-surface-variant">Baseline</span>
+</div>
+<div class="flex items-center gap-1.5">
+<span class="w-3 h-3 rounded-DEFAULT bg-secondary inline-block"></span>
+<span class="text-on-surface font-semibold">Post-Chaser</span>
+</div>
+<div class="flex items-center gap-1.5">
+<span class="w-3 h-0.5 bg-error inline-block"></span>
+<span class="text-error font-semibold">&lt;5d SLA Target</span>
+</div>
+</div>
+</div>
+<!-- SVG Distribution Comparison Chart -->
+<div class="w-full h-64 relative flex items-center justify-center">
+<svg class="w-full h-full overflow-visible" preserveaspectratio="none" viewbox="0 0 540 220">
+<defs>
+<lineargradient id="gradientPost" x1="0" x2="0" y1="0" y2="1">
+<stop offset="0%" stop-color="#0051d5" stop-opacity="0.25"></stop>
+<stop offset="100%" stop-color="#0051d5" stop-opacity="0.0"></stop>
+</lineargradient>
+<lineargradient id="gradientBase" x1="0" x2="0" y1="0" y2="1">
+<stop offset="0%" stop-color="#75777e" stop-opacity="0.15"></stop>
+<stop offset="100%" stop-color="#75777e" stop-opacity="0.0"></stop>
+</lineargradient>
+</defs>
+<!-- Horizontal Grid Lines -->
+<line stroke="#eff4ff" stroke-width="1" x1="40" x2="520" y1="30" y2="30"></line>
+<line stroke="#eff4ff" stroke-width="1" x1="40" x2="520" y1="80" y2="80"></line>
+<line stroke="#eff4ff" stroke-width="1" x1="40" x2="520" y1="130" y2="130"></line>
+<line stroke="#eff4ff" stroke-width="1" x1="40" x2="520" y1="180" y2="180"></line>
+<!-- Y-Axis Labels -->
+<text fill="#75777e" font-family="Inter" font-size="10" text-anchor="end" x="32" y="34">40%</text>
+<text fill="#75777e" font-family="Inter" font-size="10" text-anchor="end" x="32" y="84">30%</text>
+<text fill="#75777e" font-family="Inter" font-size="10" text-anchor="end" x="32" y="134">20%</text>
+<text fill="#75777e" font-family="Inter" font-size="10" text-anchor="end" x="32" y="184">10%</text>
+<!-- Target SLA Line at Day 5 -->
+<line stroke="#ba1a1a" stroke-dasharray="3 3" stroke-width="1.5" x1="160" x2="160" y1="20" y2="185"></line>
+<text fill="#ba1a1a" font-family="Inter" font-size="9" font-weight="600" x="165" y="28">5-Day Target Threshold</text>
+<!-- Baseline Area & Line (Centered around day 17) -->
+<path d="M 40,180 C 120,180 160,175 220,150 C 280,120 340,55 360,50 C 390,45 420,95 460,150 C 490,170 510,180 520,180 L 520,180 L 40,180 Z" fill="url(#gradientBase)"></path>
+<path d="M 40,180 C 120,180 160,175 220,150 C 280,120 340,55 360,50 C 390,45 420,95 460,150 C 490,170 510,180 520,180" fill="none" stroke="#75777e" stroke-width="2"></path>
+<!-- Post-Document Chaser Area & Line (Centered around day 7-8) -->
+<path d="M 40,180 C 70,170 120,110 160,60 C 190,32 230,42 270,95 C 320,145 380,175 440,178 C 480,180 510,180 520,180 L 520,180 L 40,180 Z" fill="url(#gradientPost)"></path>
+<path d="M 40,180 C 70,170 120,110 160,60 C 190,32 230,42 270,95 C 320,145 380,175 440,178 C 480,180 510,180 520,180" fill="none" stroke="#0051d5" stroke-width="2.5"></path>
+<!-- Markers for Averages -->
+<circle cx="215" cy="52" fill="#0051d5" r="4"></circle>
+<circle cx="360" cy="50" fill="#75777e" r="4"></circle>
+<!-- Peak Annotations -->
+<rect fill="#0051d5" height="18" rx="2" width="70" x="180" y="32"></rect>
+<text fill="#ffffff" font-family="Inter" font-size="9.5" font-weight="600" text-anchor="middle" x="215" y="44">Now: 7.8 Days</text>
+<rect fill="#213145" height="18" rx="2" width="70" x="325" y="24"></rect>
+<text fill="#ffffff" font-family="Inter" font-size="9.5" font-weight="600" text-anchor="middle" x="360" y="36">Base: 17 Days</text>
+<!-- X-Axis Labels (Days) -->
+<text fill="#75777e" font-family="Inter" font-size="10" text-anchor="middle" x="50" y="200">1-2d</text>
+<text fill="#0b1c30" font-family="Inter" font-size="10" font-weight="600" text-anchor="middle" x="160" y="200">5d</text>
+<text fill="#0051d5" font-family="Inter" font-size="10" font-weight="600" text-anchor="middle" x="220" y="200">8d</text>
+<text fill="#75777e" font-family="Inter" font-size="10" text-anchor="middle" x="300" y="200">12d</text>
+<text fill="#75777e" font-family="Inter" font-size="10" text-anchor="middle" x="360" y="200">17d</text>
+<text fill="#75777e" font-family="Inter" font-size="10" text-anchor="middle" x="440" y="200">24d</text>
+<text fill="#75777e" font-family="Inter" font-size="10" text-anchor="middle" x="510" y="200">30d+</text>
+</svg>
+</div>
+<div class="mt-space-md pt-space-xs flex items-center justify-between text-on-surface-variant font-body-sm text-body-sm">
+<span>• Rapid responses (&lt;3 days) rose from 31.0% to 74.2%</span>
+<span>Skew: 81.3% of cases now resolve within 10 operational days</span>
+</div>
+</div>
+<!-- Chart 2: Chase Rounds per Corporate Case (Monthly 400 Onboardings) -->
+<div class="lg:col-span-5 bg-surface-container-lowest rounded-xl p-space-lg shadow-sm flex flex-col justify-between">
+<div class="flex items-center justify-between pb-space-sm mb-space-sm">
+<div class="flex flex-col">
+<span class="font-headline-md text-headline-md text-on-surface">Chase Rounds per Case</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant">Breakdown of 400 Active Onboardings</span>
+</div>
+<span class="px-space-xs py-0.5 rounded-DEFAULT bg-surface-container font-metric-tabular text-label-sm text-on-surface font-semibold">Mean: 1.3 Rnds</span>
+</div>
+<!-- Segmented Bar Visualization -->
+<div class="flex flex-col gap-space-md my-auto">
+<!-- Visual Multi-segment Bar -->
+<div class="w-full flex h-8 rounded-lg overflow-hidden p-0.5 bg-surface-container gap-1">
+<div class="bg-secondary h-full rounded-l-DEFAULT transition-all flex items-center justify-center text-on-secondary font-label-sm text-label-sm font-semibold" style="width: 68%;" title="Single Round: 68% (272 cases)">
+            68% (1 Round)
+          </div>
+<div class="bg-secondary-fixed text-on-secondary-fixed h-full transition-all flex items-center justify-center font-label-sm text-label-sm font-semibold" style="width: 24%;" title="Two Rounds: 24% (96 cases)">
+            24% (2 Rnds)
+          </div>
+<div class="bg-surface-container-high text-on-surface h-full rounded-r-DEFAULT transition-all flex items-center justify-center font-label-sm text-label-sm font-semibold" style="width: 8%;" title="3+ Rounds: 8% (32 cases)">
+            8%
+          </div>
+</div>
+<!-- Breakdown Details -->
+<div class="space-y-space-sm mt-space-sm">
+<div class="flex items-center justify-between p-space-sm rounded-lg bg-surface-container-low">
+<div class="flex items-center gap-space-sm">
+<span class="w-3 h-3 rounded-full bg-secondary"></span>
+<div class="flex flex-col">
+<span class="font-title-sm text-title-sm text-on-surface">Single Round Complete (Consolidated Gap Clear)</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant">Client received 1 consolidated email, submitted all documents</span>
+</div>
+</div>
+<div class="text-right">
+<span class="font-metric-tabular text-title-sm text-on-surface font-bold">272 cases</span>
+<span class="block font-label-sm text-label-sm text-secondary font-semibold">68.0%</span>
+</div>
+</div>
+<div class="flex items-center justify-between p-space-sm rounded-lg bg-surface-container-low">
+<div class="flex items-center gap-space-sm">
+<span class="w-3 h-3 rounded-full bg-secondary-fixed"></span>
+<div class="flex flex-col">
+<span class="font-title-sm text-title-sm text-on-surface">Two Rounds (Minor Defect or Notary Follow-up)</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant">Required secondary ping for apostille or signature verification</span>
+</div>
+</div>
+<div class="text-right">
+<span class="font-metric-tabular text-title-sm text-on-surface font-bold">96 cases</span>
+<span class="block font-label-sm text-label-sm text-on-surface font-semibold">24.0%</span>
+</div>
+</div>
+<div class="flex items-center justify-between p-space-sm rounded-lg bg-surface-container-low">
+<div class="flex items-center gap-space-sm">
+<span class="w-3 h-3 rounded-full bg-outline-variant"></span>
+<div class="flex flex-col">
+<span class="font-title-sm text-title-sm text-on-surface">3+ Rounds (Escalated Complex Holding Structures)</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant">Multi-tier UBO verification across sovereign registries</span>
+</div>
+</div>
+<div class="text-right">
+<span class="font-metric-tabular text-title-sm text-on-surface font-bold">32 cases</span>
+<span class="block font-label-sm text-label-sm text-on-surface-variant font-semibold">8.0%</span>
+</div>
+</div>
+</div>
+</div>
+<div class="mt-space-md pt-space-xs font-label-sm text-label-sm text-on-surface-variant flex items-center justify-between">
+<span>Historic comparison: Pre-Chaser 3+ rounds occurred in 49% of onboardings</span>
+<span class="text-secondary font-semibold">-83.7% reduction</span>
+</div>
+</div>
+</div>
+<!-- Chart 3: 3-Day SLA Adherence & Proactive Escalation Funnel (Full Width) -->
+<div class="w-full bg-surface-container-lowest rounded-xl p-space-lg shadow-sm mb-space-xl">
+<div class="flex flex-col sm:flex-row sm:items-center justify-between pb-space-sm mb-space-md gap-space-sm">
+<div class="flex flex-col">
+<div class="flex items-center gap-space-xs">
+<span class="font-headline-md text-headline-md text-on-surface">3-Day SLA Adherence &amp; Proactive Escalation Funnel</span>
+<span class="px-space-xs py-0.5 rounded-DEFAULT bg-secondary-fixed text-on-secondary-fixed font-label-sm text-label-sm">Automated Cadence</span>
+</div>
+<span class="font-body-sm text-body-sm text-on-surface-variant">Tracking progression through automated nudge triggers to eliminate dormant corporate requests</span>
+</div>
+<div class="flex items-center gap-space-xs">
+<span class="font-label-sm text-label-sm text-on-surface-variant">SLA Breach Prevention:</span>
+<span class="font-metric-tabular text-title-sm text-secondary font-bold">92.4% Effectiveness</span>
+</div>
+</div>
+<!-- Interactive Visual Funnel Pipeline -->
+<div class="grid grid-cols-1 md:grid-cols-4 gap-space-sm relative">
+<!-- Funnel Step 1 -->
+<div class="bg-surface-container-low p-space-md rounded-xl flex flex-col justify-between relative group hover:bg-surface-container transition-colors">
+<div class="flex items-center justify-between mb-space-sm">
+<span class="px-space-xs py-0.5 rounded-DEFAULT bg-primary-container text-surface-container font-label-sm text-label-sm font-semibold">STAGE 1</span>
+<span class="font-metric-tabular text-label-sm text-on-surface-variant">Hour 00:00</span>
+</div>
+<div>
+<span class="font-headline-md text-headline-md text-on-surface font-semibold block">400 Entities</span>
+<span class="font-title-sm text-title-sm text-on-surface-variant">Consolidated Gap Chase Dispatched</span>
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-1">Multi-item checklist sent via secure tokenized portal link.</p>
+</div>
+<div class="mt-space-md pt-space-xs flex items-center justify-between font-label-sm text-label-sm">
+<span class="text-on-surface-variant">100% Ingested</span>
+<span class="text-secondary font-semibold">100% Volume</span>
+</div>
+</div>
+<!-- Funnel Step 2 -->
+<div class="bg-surface-container-low p-space-md rounded-xl flex flex-col justify-between relative group hover:bg-surface-container transition-colors">
+<div class="flex items-center justify-between mb-space-sm">
+<span class="px-space-xs py-0.5 rounded-DEFAULT bg-secondary text-on-secondary font-label-sm text-label-sm font-semibold">STAGE 2 (SLA Target)</span>
+<span class="font-metric-tabular text-label-sm text-secondary font-semibold">Day 1 to 3</span>
+</div>
+<div>
+<span class="font-headline-xl text-headline-xl text-secondary font-bold block">297 Clients</span>
+<span class="font-title-sm text-title-sm text-on-surface font-medium">Uploaded Within 72h Window</span>
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-1">Primary response target met without manual relationship manager nudging.</p>
+</div>
+<div class="mt-space-md pt-space-xs flex items-center justify-between font-label-sm text-label-sm">
+<span class="text-on-surface-variant">Resolution Rate</span>
+<span class="text-secondary font-bold">74.2% Passed</span>
+</div>
+</div>
+<!-- Funnel Step 3 -->
+<div class="bg-surface-container-low p-space-md rounded-xl flex flex-col justify-between relative group hover:bg-surface-container transition-colors">
+<div class="flex items-center justify-between mb-space-sm">
+<span class="px-space-xs py-0.5 rounded-DEFAULT bg-tertiary-fixed text-on-tertiary-fixed font-label-sm text-label-sm font-semibold">STAGE 3 (Automated Nudge)</span>
+<span class="font-metric-tabular text-label-sm text-on-tertiary-container font-semibold">Day 4: 09:00 AM</span>
+</div>
+<div>
+<span class="font-headline-md text-headline-md text-on-surface font-semibold block">103 Cases Nudged</span>
+<span class="font-title-sm text-title-sm text-on-surface-variant">AI Auto-Reminder Dispatched</span>
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-1">Warm reminder highlighting remaining missing items only. 72 responded in 48h.</p>
+</div>
+<div class="mt-space-md pt-space-xs flex items-center justify-between font-label-sm text-label-sm">
+<span class="text-on-surface-variant">Post-Nudge Cleared</span>
+<span class="text-on-surface font-semibold">69.9% Yield</span>
+</div>
+</div>
+<!-- Funnel Step 4 -->
+<div class="bg-surface-container-low p-space-md rounded-xl flex flex-col justify-between relative group hover:bg-surface-container transition-colors">
+<div class="flex items-center justify-between mb-space-sm">
+<span class="px-space-xs py-0.5 rounded-DEFAULT bg-surface-container-highest text-on-surface font-label-sm text-label-sm font-semibold">STAGE 4 (RM Escalation)</span>
+<span class="font-metric-tabular text-label-sm text-error font-semibold">Day 7+ Threshold</span>
+</div>
+<div>
+<span class="font-headline-md text-headline-md text-on-surface font-semibold block">31 Dormant Cases</span>
+<span class="font-title-sm text-title-sm text-on-surface-variant">RM Direct Call Task Created</span>
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-1">Elena Vance &amp; Coverage teams assigned high-touch phone outreach.</p>
+</div>
+<div class="mt-space-md pt-space-xs flex items-center justify-between font-label-sm text-label-sm">
+<span class="text-on-surface-variant">Dormant Pipeline</span>
+<span class="text-error font-semibold">7.7% Residual</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Operational Context Card: Elena Vance Coverage Productivity -->
+<div class="grid grid-cols-1 md:grid-cols-3 gap-space-md mb-space-xl">
+<div class="bg-surface-container-lowest rounded-xl p-space-md shadow-sm flex items-center gap-space-md">
+<div class="w-10 h-10 rounded-lg bg-surface-container flex items-center justify-center text-secondary shrink-0">
+<span class="material-symbols-outlined">mark_email_read</span>
+</div>
+<div class="flex flex-col">
+<span class="font-headline-md text-headline-md text-on-surface font-semibold">1,240 Drafts</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant">AI Consolidated Templates Created</span>
+</div>
+</div>
+<div class="bg-surface-container-lowest rounded-xl p-space-md shadow-sm flex items-center gap-space-md">
+<div class="w-10 h-10 rounded-lg bg-surface-container flex items-center justify-center text-secondary shrink-0">
+<span class="material-symbols-outlined">verified</span>
+</div>
+<div class="flex flex-col">
+<span class="font-headline-md text-headline-md text-on-surface font-semibold">99.2% Accuracy</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant">Registry Match Before Outreach</span>
+</div>
+</div>
+<div class="bg-surface-container-lowest rounded-xl p-space-md shadow-sm flex items-center gap-space-md">
+<div class="w-10 h-10 rounded-lg bg-surface-container flex items-center justify-center text-secondary shrink-0">
+<span class="material-symbols-outlined">history_toggle_off</span>
+</div>
+<div class="flex flex-col">
+<span class="font-headline-md text-headline-md text-on-surface font-semibold">1.55 hrs / case</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant">Front-Office Time Salvaged</span>
+</div>
+</div>
+</div>
+<!-- Compliance & Audit Ledger Table (Production Audit Trail) -->
+<div class="w-full bg-surface-container-lowest rounded-xl shadow-sm overflow-hidden mb-space-xl">
+<!-- Header with Filters & Export -->
+<div class="p-space-lg flex flex-col sm:flex-row sm:items-center justify-between gap-space-md bg-surface-container-lowest">
+<div class="flex flex-col">
+<div class="flex items-center gap-space-xs">
+<span class="material-symbols-outlined text-secondary text-[1.25rem]">gavel</span>
+<h2 class="font-headline-md text-headline-md text-on-surface font-semibold">Regulatory Compliance &amp; Case Audit Ledger</h2>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-0.5">Immutable record of chasing events, analyst approvals, and cryptographically verified client uploads.</p>
+</div>
+<div class="flex flex-wrap items-center gap-space-xs">
+<button class="px-space-md py-space-xs bg-surface-container hover:bg-surface-container-high text-on-surface font-label-md text-label-md rounded-lg flex items-center gap-1 transition-colors">
+<span class="material-symbols-outlined text-[1rem]">filter_list</span> Filter Action
+        </button>
+<button class="px-space-md py-space-xs bg-primary text-on-primary hover:bg-on-surface font-label-md text-label-md rounded-lg flex items-center gap-1 shadow-sm transition-all" onclick="alert('Preparing Regulatory Compliance Audit Bundle for HKMA / FCA / FinCEN Inspection...')">
+<span class="material-symbols-outlined text-[1rem]">download</span> Download Regulatory Compliance Audit Report (CSV / PDF)
+        </button>
+</div>
+</div>
+<!-- Data Table -->
+<div class="overflow-x-auto w-full">
+<table class="w-full text-left font-body-sm text-body-sm">
+<thead class="bg-surface-container-low font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider">
+<tr>
+<th class="py-space-sm px-space-md">Event Timestamp</th>
+<th class="py-space-sm px-space-md">Corporate Entity &amp; Identifier</th>
+<th class="py-space-sm px-space-md">Workflow Action</th>
+<th class="py-space-sm px-space-md">Actor / Channel</th>
+<th class="py-space-sm px-space-md">Doc Gap Context</th>
+<th class="py-space-sm px-space-md text-right">Audit Status</th>
+</tr>
+</thead>
+<tbody class="divide-y-0 text-on-surface">
+<!-- Row 1 -->
+<tr class="hover:bg-surface-container-low/60 transition-colors">
+<td class="py-space-sm px-space-md font-metric-tabular text-label-md text-on-surface-variant whitespace-nowrap">
+              2025-05-14 16:42:18 UTC
+            </td>
+<td class="py-space-sm px-space-md">
+<div class="flex flex-col">
+<span class="font-title-sm text-title-sm text-on-surface">Apex Global Logistics B.V.</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant">LEI: 72450098ABCXYZ001290</span>
+</div>
+</td>
+<td class="py-space-sm px-space-md">
+<span class="inline-flex items-center gap-1 px-space-xs py-0.5 rounded-DEFAULT bg-secondary-fixed text-on-secondary-fixed font-label-sm text-label-sm font-semibold">
+<span class="material-symbols-outlined text-[0.875rem]">sync</span> Analyst Sync Completed
+              </span>
+</td>
+<td class="py-space-sm px-space-md text-on-surface font-title-sm text-title-sm">
+              Marcus Sterling (Sr. AML Analyst)
+            </td>
+<td class="py-space-sm px-space-md text-on-surface-variant font-body-sm text-body-sm">
+              Netherlands KvK extract certified &amp; passed to Core Banking
+            </td>
+<td class="py-space-sm px-space-md text-right">
+<span class="font-label-sm text-label-sm text-secondary font-semibold">VERIFIED • ID #99102</span>
+</td>
+</tr>
+<!-- Row 2 -->
+<tr class="bg-surface-container-lowest hover:bg-surface-container-low/60 transition-colors">
+<td class="py-space-sm px-space-md font-metric-tabular text-label-md text-on-surface-variant whitespace-nowrap">
+              2025-05-14 15:11:04 UTC
+            </td>
+<td class="py-space-sm px-space-md">
+<div class="flex flex-col">
+<span class="font-title-sm text-title-sm text-on-surface">Apex Global Logistics B.V.</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant">LEI: 72450098ABCXYZ001290</span>
+</div>
+</td>
+<td class="py-space-sm px-space-md">
+<span class="inline-flex items-center gap-1 px-space-xs py-0.5 rounded-DEFAULT bg-surface-container-highest text-on-surface font-label-sm text-label-sm font-semibold">
+<span class="material-symbols-outlined text-[0.875rem]">cloud_done</span> Client Upload Received
+              </span>
+</td>
+<td class="py-space-sm px-space-md text-on-surface font-title-sm text-title-sm">
+              Treasurer (client-portal: auth-token#4f21)
+            </td>
+<td class="py-space-sm px-space-md text-on-surface-variant font-body-sm text-body-sm">
+              Uploaded: KvK_Registry_2025.pdf (SHA-256 Validated)
+            </td>
+<td class="py-space-sm px-space-md text-right">
+<span class="font-label-sm text-label-sm text-on-surface font-semibold">STORED (WORM compliant)</span>
+</td>
+</tr>
+<!-- Row 3 -->
+<tr class="hover:bg-surface-container-low/60 transition-colors">
+<td class="py-space-sm px-space-md font-metric-tabular text-label-md text-on-surface-variant whitespace-nowrap">
+              2025-05-14 11:30:19 UTC
+            </td>
+<td class="py-space-sm px-space-md">
+<div class="flex flex-col">
+<span class="font-title-sm text-title-sm text-on-surface">Vanguard Marine Energy Pte Ltd</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant">UEN: 201948102M</span>
+</div>
+</td>
+<td class="py-space-sm px-space-md">
+<span class="inline-flex items-center gap-1 px-space-xs py-0.5 rounded-DEFAULT bg-primary-container text-surface-container font-label-sm text-label-sm font-semibold">
+<span class="material-symbols-outlined text-[0.875rem]">send</span> Dispatched via Secure Gateway
+              </span>
+</td>
+<td class="py-space-sm px-space-md text-on-surface font-title-sm text-title-sm">
+              SMTP Relay TLS 1.3 / Portal Gateway
+            </td>
+<td class="py-space-sm px-space-md text-on-surface-variant font-body-sm text-body-sm">
+              3 documents requested (Beneficial Ownership Register, Cert of Inc, Sanctions Attestation)
+            </td>
+<td class="py-space-sm px-space-md text-right">
+<span class="font-label-sm text-label-sm text-on-surface-variant font-medium">DISPATCHED (3d SLA Active)</span>
+</td>
+</tr>
+<!-- Row 4 -->
+<tr class="bg-surface-container-lowest hover:bg-surface-container-low/60 transition-colors">
+<td class="py-space-sm px-space-md font-metric-tabular text-label-md text-on-surface-variant whitespace-nowrap">
+              2025-05-14 11:22:45 UTC
+            </td>
+<td class="py-space-sm px-space-md">
+<div class="flex flex-col">
+<span class="font-title-sm text-title-sm text-on-surface">Vanguard Marine Energy Pte Ltd</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant">UEN: 201948102M</span>
+</div>
+</td>
+<td class="py-space-sm px-space-md">
+<span class="inline-flex items-center gap-1 px-space-xs py-0.5 rounded-DEFAULT bg-secondary-fixed text-on-secondary-fixed font-label-sm text-label-sm font-semibold">
+<span class="material-symbols-outlined text-[0.875rem]">verified_user</span> RM Manual Approval by Elena Vance
+              </span>
+</td>
+<td class="py-space-sm px-space-md text-on-surface font-title-sm text-title-sm">
+              Elena Vance (Sr. RM, Institutional)
+            </td>
+<td class="py-space-sm px-space-md text-on-surface-variant font-body-sm text-body-sm">
+              Reviewed tone, adjusted bespoke signing instructions for CEO
+            </td>
+<td class="py-space-sm px-space-md text-right">
+<span class="font-label-sm text-label-sm text-secondary font-semibold">APPROVED SIGN-OFF</span>
+</td>
+</tr>
+<!-- Row 5 -->
+<tr class="hover:bg-surface-container-low/60 transition-colors">
+<td class="py-space-sm px-space-md font-metric-tabular text-label-md text-on-surface-variant whitespace-nowrap">
+              2025-05-14 11:18:02 UTC
+            </td>
+<td class="py-space-sm px-space-md">
+<div class="flex flex-col">
+<span class="font-title-sm text-title-sm text-on-surface">Vanguard Marine Energy Pte Ltd</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant">UEN: 201948102M</span>
+</div>
+</td>
+<td class="py-space-sm px-space-md">
+<span class="inline-flex items-center gap-1 px-space-xs py-0.5 rounded-DEFAULT bg-surface-container font-label-sm text-label-sm text-on-surface font-semibold">
+<span class="material-symbols-outlined text-[0.875rem]">auto_fix_high</span> AI Consolidated Draft Created
+              </span>
+</td>
+<td class="py-space-sm px-space-md text-on-surface font-title-sm text-title-sm">
+              Northgate KYC Engine v4.2
+            </td>
+<td class="py-space-sm px-space-md text-on-surface-variant font-body-sm text-body-sm">
+              Parsed registry gap (ACRA registry Singapore deficiency matched)
+            </td>
+<td class="py-space-sm px-space-md text-right">
+<span class="font-label-sm text-label-sm text-on-surface-variant">GENERATED (v1)</span>
+</td>
+</tr>
+<!-- Row 6 -->
+<tr class="bg-surface-container-lowest hover:bg-surface-container-low/60 transition-colors">
+<td class="py-space-sm px-space-md font-metric-tabular text-label-md text-on-surface-variant whitespace-nowrap">
+              2025-05-14 09:05:40 UTC
+            </td>
+<td class="py-space-sm px-space-md">
+<div class="flex flex-col">
+<span class="font-title-sm text-title-sm text-on-surface">Helios Solar Holding SARL</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant">LEI: 549300LMN904812401</span>
+</div>
+</td>
+<td class="py-space-sm px-space-md">
+<span class="inline-flex items-center gap-1 px-space-xs py-0.5 rounded-DEFAULT bg-tertiary-fixed text-on-tertiary-fixed font-label-sm text-label-sm font-semibold">
+<span class="material-symbols-outlined text-[0.875rem]">notifications_active</span> Auto 3-Day SLA Reminder Dispatched
+              </span>
+</td>
+<td class="py-space-sm px-space-md text-on-surface font-title-sm text-title-sm">
+              SLA Chaser Scheduler
+            </td>
+<td class="py-space-sm px-space-md text-on-surface-variant font-body-sm text-body-sm">
+              Follow-up ping sent for pending Luxembourg RBE beneficial owner notarization
+            </td>
+<td class="py-space-sm px-space-md text-right">
+<span class="font-label-sm text-label-sm text-on-tertiary-container font-semibold">NUDGE DELIVERED</span>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<!-- Table Footer Pagination & Ledger Signature -->
+<div class="p-space-md bg-surface-container-low flex flex-col sm:flex-row sm:items-center justify-between gap-space-sm text-on-surface-variant font-label-sm text-label-sm">
+<div class="flex items-center gap-space-xs">
+<span class="material-symbols-outlined text-[1rem] text-secondary">verified</span>
+<span>Audit Ledger Hash: <span class="font-metric-tabular text-on-surface">sha256:d8a94bc7210e74f8819a3b...</span> • Enforced Under Tier 1 Segregation</span>
+</div>
+<div class="flex items-center gap-space-sm">
+<span>Showing 1-6 of 1,842 audit records</span>
+<div class="inline-flex items-center gap-1">
+<button class="px-space-xs py-0.5 rounded-DEFAULT bg-surface-container-lowest text-on-surface hover:bg-surface-container transition-colors disabled:opacity-50" disabled="">&lt;</button>
+<button class="px-space-xs py-0.5 rounded-DEFAULT bg-surface-container-lowest text-on-surface hover:bg-surface-container transition-colors">&gt;</button>
+</div>
+</div>
+</div>
+</div>
+</div></main><footer class="w-full bg-surface-container-lowest shadow-[0_-1px_4px_rgba(0,0,0,0.02)] py-space-md"><div class="w-full px-gutter-desktop flex items-center justify-between font-label-sm text-label-sm text-on-surface-variant"><span>Northgate Banking Corporation • Institutional Compliance Division</span><span>Audit-Ready Case Chaser v4.2.1 • Tier 1 Data Segregation Enforced</span></div></footer></body></html>
